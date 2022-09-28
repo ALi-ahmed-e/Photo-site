@@ -18,6 +18,10 @@ import Error from './components/error/Error';
 function App() {
   const User = useSelector(state => state.auth.user)
 
+
+  const [update, setupdate] = useState();
+
+  //theme
   const [theme, settheme] = useState();
 
   useEffect(() => {
@@ -79,6 +83,8 @@ function App() {
   }, []);
 
 
+  //chek logged in not
+
   const CheckAuth = ({ children }) => {
     if (User) {
       return (children)
@@ -86,6 +92,8 @@ function App() {
       return <Navigate to='/signin' />
     }
   }
+
+
   const ChecknotAuth = ({ children }) => {
     if (User) {
       return <Navigate to='/' />
@@ -95,17 +103,20 @@ function App() {
     }
   }
 
+const updatethestate = (v)=>{
 
+  setupdate(Math.random())
+
+}
 
   return (
     <div className={`App  ${theme}`}>
       <BrowserRouter>
-        {User && <Navbar />}
+        {User && <Navbar updatethestate={updatethestate} />}
         <Routes>
           <Route path='/' element={<CheckAuth><Home /></CheckAuth>} />
           <Route path='/profile' element={<CheckAuth><Profile /></CheckAuth>} />
-          <Route path='/explore' element={<CheckAuth><Explore /></CheckAuth>} />
-          {/* <Route path='/addpost' element={<CheckAuth><Addpost /></CheckAuth>} /> */}
+          <Route path='/explore' element={<CheckAuth><Explore update={update} /></CheckAuth>} />
           <Route path='/settings' element={<CheckAuth><Settings /></CheckAuth>} />
           <Route path='/signin' element={<ChecknotAuth><Sign /></ChecknotAuth>} />
           <Route path='/signup' element={<ChecknotAuth><Signup /></ChecknotAuth>} />

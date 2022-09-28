@@ -4,18 +4,18 @@ import { Menu, Transition } from '@headlessui/react'
 import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
 import { ChatBubbleLeftRightIcon, PencilIcon } from '@heroicons/react/24/outline';
-const Explore = () => {
+const Explore = (x) => {
 
   const [posts, setposts] = useState([]);
   const [lastVisible, setlastVisible] = useState();
   const user = useSelector(state => state.auth.user)
   const classNames = (...classes) => { return classes.filter(Boolean).join(' ') }
   const [userdata, setuserdata] = useState();
-  let lastelement;
-
+  const [times, settimes] = useState(0);
   const getuserdata = async () => {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
+  
 
     if (docSnap.exists()) {
       setuserdata(docSnap.data())
@@ -24,6 +24,14 @@ const Explore = () => {
     }
   }
 
+  useEffect(() => {
+    if (times == 0) {
+      settimes(1)
+    } else {
+      settimes(1)
+      showUpdates()
+    }
+  }, [x.update]);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -41,17 +49,23 @@ const Explore = () => {
   const getmoredata = async () => {
     const postslist = []
     const next = query(collection(db, "posts"),
+      orderBy('timeStamp'),
       startAfter(lastVisible),
-      limit(20))
+      limit(20)
+    )
 
     const documentSnapshots = await getDocs(next);
-    setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+    if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
+      documentSnapshots.forEach((doc) => {
+        postslist.push(doc.data());
+      })
 
-    documentSnapshots.forEach((doc) => {
-      postslist.push(doc.data());
-    })
-    const newposts = posts.concat(postslist)
-    setposts(newposts)
+      const newposts = posts.concat(postslist)
+      setposts(newposts)
+
+      setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+    }
+
 
   }
 
@@ -60,7 +74,7 @@ const Explore = () => {
 
     const postslist = []
 
-    const first = query(collection(db, "posts"), limit(20));
+    const first = query(collection(db, "posts"), orderBy('timeStamp'), limit(20));
     const documentSnapshots = await getDocs(first)
 
 
@@ -95,13 +109,10 @@ const Explore = () => {
 
   const showUpdates = async () => {
 
-
-    
-
     if (lastVisible) {
       console.log('render')
 
-      const q = query(collection(db, "posts"), endAt(lastVisible));
+      const q = query(collection(db, "posts"), orderBy('timeStamp'), endAt(lastVisible));
 
       onSnapshot(q, (querySnapshot) => {
         const postlists = [];

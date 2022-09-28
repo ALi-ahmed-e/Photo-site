@@ -6,7 +6,7 @@ import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from "firebase/fi
 import { db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-const Addpost = () => {
+const Addpost = ({updates}) => {
   const dispatch = useDispatch()
   const { hide } = addaction
   const user = useSelector(state => state.auth.user)
@@ -19,6 +19,7 @@ const Addpost = () => {
   const publicPost = async () => {
 
     if (postBody.current.value || media.file) {
+
       setspinner(<>Post <i className="fa-solid fa-circle-notch animate-spin text-lg text-white"></i></>)
       settxt()
       let pid = []
@@ -48,6 +49,7 @@ const Addpost = () => {
       });
 
       const action = hide()
+      updates('update')
       dispatch(action)
       setspinner('Post')
 

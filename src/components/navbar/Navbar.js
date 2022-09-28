@@ -6,7 +6,7 @@ import { auth } from '../../firebase'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Addpost from '../Addnew/Addpost'
 import { addaction } from '../../store/reducers/addnewreducer'
-const Navbar = () => {
+const Navbar = ({ updatethestate }) => {
     const user = useSelector(state => state.auth.user)
     const addnew = useSelector(state => state.addnew.addnew)
     const dispatch = useDispatch()
@@ -29,9 +29,13 @@ const Navbar = () => {
         });
     }
 
+    const updates = (v)=>{
+        updatethestate('update')
+    }
+
     useEffect(() => {
         if (addnew == 'show') {
-            setaddpost(<Addpost />)
+            setaddpost(<Addpost updates={updates} />)
             document.body.style.overflow = 'hidden'
         } else {
             setaddpost('')
