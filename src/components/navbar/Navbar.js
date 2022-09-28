@@ -23,6 +23,9 @@ const Navbar = ({ updatethestate }) => {
     const signout = () => {
         signOut(auth).then(() => {
             localStorage.removeItem('user')
+            localStorage.removeItem('Credential')
+            localStorage.removeItem('theme')
+            
             window.location.reload()
         }).catch((error) => {
             console.log(error)

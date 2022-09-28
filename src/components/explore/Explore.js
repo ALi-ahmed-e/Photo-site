@@ -227,7 +227,7 @@ const Explore = (x) => {
                         </p>
                       )}
                     </Menu.Item>
-                    {userdata && userdata.posts.includes(post.postId) &&
+                    {userdata && userdata.posts && userdata.posts.includes(post.postId) &&
                       <>
                         <Menu.Item>
                           {({ active }) => (
