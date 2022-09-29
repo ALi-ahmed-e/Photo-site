@@ -1,11 +1,11 @@
 import React from 'react'
 
-const OtherProfile = () => {
+const Fav = () => {
   return (
     <div>
-        
+        fasv
     </div>
   )
 }
 
-export default OtherProfile
+export default Fav

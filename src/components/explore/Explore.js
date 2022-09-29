@@ -12,10 +12,16 @@ const Explore = (x) => {
   const classNames = (...classes) => { return classes.filter(Boolean).join(' ') }
   const [userdata, setuserdata] = useState();
   const [times, settimes] = useState(0);
+
+
+
+
+
+
   const getuserdata = async () => {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
-  
+
 
     if (docSnap.exists()) {
       setuserdata(docSnap.data())
@@ -155,16 +161,47 @@ const Explore = (x) => {
       await updateDoc(post, {
         likedby: arrayRemove(user.uid)
       })
+      showUpdates()
 
     } else {
       ele.className = 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love'
       await updateDoc(post, {
         likedby: arrayUnion(user.uid)
       })
+      showUpdates()
     }
-    showUpdates()
+    
 
   }
+
+
+
+  const saveposttofav = async (postId) => {
+    const me = doc(db, "users", user.uid)
+
+    if (userdata.favourites) {
+      if (userdata.favourites.includes(postId)) {
+
+        await updateDoc(me, {
+          favourites: arrayRemove(postId)
+        })
+        getuserdata()
+        showUpdates()
+      } else {
+        await updateDoc(me, {
+          favourites: arrayUnion(postId)
+        })
+        getuserdata()
+        showUpdates()
+      }
+
+    }
+
+  }
+
+
+
+
 
   return (
     <div className=' pb-48'>
@@ -217,13 +254,16 @@ const Explore = (x) => {
                       {({ active }) => (
                         <p
 
-
+                          onClick={() => saveposttofav(post.postId)}
                           className={classNames(
                             active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
                             'block px-4 py-2 text-sm  cursor-pointer'
                           )}
                         >
-                          Save to favourites <i className="fa-regular fa-bookmark"></i>
+
+                          {userdata.favourites && userdata.favourites.includes(post.postId) ? <>unsave post <i className="fa-solid fa-bookmark"></i> </> : <>save post <i className="fa-regular fa-bookmark"></i></>}
+
+
                         </p>
                       )}
                     </Menu.Item>

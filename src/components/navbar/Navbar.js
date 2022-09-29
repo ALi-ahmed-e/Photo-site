@@ -90,6 +90,20 @@ const Navbar = ({ updatethestate }) => {
                                             </p>
                                         )}
                                     </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <p
+
+                                                onClick={() => { navigate('/favourites') }}
+                                                className={classNames(
+                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900' : 'text-gray-700 dark:text-slate-100',
+                                                    'block px-4 py-2 text-sm'
+                                                )}
+                                            >
+                                                favourites
+                                            </p>
+                                        )}
+                                    </Menu.Item>
 
                                 </div>
                                 <div className="py-1">
@@ -134,9 +148,7 @@ const Navbar = ({ updatethestate }) => {
                     </p>
 
                 </div>
-                {/* <div className='  sm:hidden' onClick={() => { navbar == 'hide' ? setnavbar('show') : setnavbar('hide') }}>
-                    <Bars3Icon className=' h-8 w-8 ml-3 cursor-pointer  dark:text-white' />
-                </div> */}
+
 
                 <div className={' sm:w-4/12 w-6/12 h-full   flex-row justify-around items-center flex'} style={{ 'direction': 'ltr' }}>
                     <NavLink end to='/' className=' font-bold text-xl cursor-pointer hover:bg-slate-200 py-1 px-2 rounded-md transition-colors dark:text-white dark:hover:bg-slate-900'><i className="fa-solid fa-house"></i></NavLink>
