@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
 import { ChatBubbleLeftRightIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 const Explore = (x) => {
 
   const [posts, setposts] = useState([]);
@@ -12,7 +13,7 @@ const Explore = (x) => {
   const classNames = (...classes) => { return classes.filter(Boolean).join(' ') }
   const [userdata, setuserdata] = useState();
   const [times, settimes] = useState(0);
-
+  const navigate = useNavigate()
 
 
 
@@ -170,7 +171,7 @@ const Explore = (x) => {
       })
       showUpdates()
     }
-    
+
 
   }
 
@@ -199,6 +200,13 @@ const Explore = (x) => {
 
   }
 
+  const gotoprof = (Id) => {
+    sessionStorage.setItem('otherprofile', Id)
+    navigate('/otherprofile')
+
+
+
+  }
 
 
 
@@ -212,12 +220,12 @@ const Explore = (x) => {
           <div className=' border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
 
 
-            <div className='flex h-full  items-center'>
+            <div onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} className=' cursor-pointer flex h-full  items-center'>
 
               <img src={post.image} className={` shadow-md  w-[40px] h-[40px] rounded-full ml-3`} alt="" />
               <div className=' flex flex-col  h-14'>
-                <span className=' -ml-12 font-semibold mt-3'>{post.name}</span>
-                <span className=' ml-8 mb-4 text-xs'>{post.postTime}</span>
+                <span className=' -ml-20 font-semibold mt-3'>{post.name}</span>
+                <span className=' ml-5 mb-4 text-xs'>{post.postTime}</span>
               </div>
 
             </div>

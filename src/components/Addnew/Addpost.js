@@ -40,7 +40,8 @@ const Addpost = ({updates}) => {
         media: media ? media : 'no',
         postTime: Date().slice(0, 21),
         postId: pid.join(''),
-        likedby: []
+        likedby: [],
+        posterId:user.uid,
       })
 
       const userpostsarrref = doc(db, "users", user.uid)
@@ -161,7 +162,7 @@ const Addpost = ({updates}) => {
         <div className='h-full flex flex-col items-center  w-full ml-1'>
           <div className=' self-start ml-3 mt-5 flex  h-fit items-center'>
             <img src={user.image} alt="" className=' border-[1px] border-black dark:border-white rounded-full w-10 h-10 ' />
-            <div className=' font-semibold ml-2 dark:text-white'>Ali ahmed</div>
+            <div className=' font-semibold ml-2 dark:text-white'>{user.name}</div>
           </div>
           <textarea onChange={(e) => { settxt(e.target.value) }} ref={postBody} placeholder="What's in your mind" className=' font-semibold text-xl bg-transparent  w-[85%] outline-none mt-5  min-h-[150px] max-h-[150px] dark:text-white' />
 
