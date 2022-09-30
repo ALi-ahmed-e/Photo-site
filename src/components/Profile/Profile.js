@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../firebase'
+import List from '../list/List'
 
 const Profile = () => {
     const user = useSelector(state => state.auth.user)
@@ -13,7 +14,7 @@ const Profile = () => {
                 <div className=' h-28 w-full bg-slate-400 dark:bg-black'></div>
 
                 <div className=' w-full bg-white dark:bg-slate-900  pb-10'>
-                    <button onClick={()=>navigate('/settings')} className=' absolute right-2 rounded-md text-white px-4 py-1 bg-indigo-500 hover:bg-indigo-600 mt-5'>Edit</button>
+                    <button onClick={() => navigate('/settings')} className=' absolute right-2 rounded-md text-white px-4 py-1 bg-indigo-500 hover:bg-indigo-600 mt-5'>Edit</button>
 
                     <img src={user.image} className='w-[150px] h-[150px] rounded-full mx-auto border-8  dark:border-slate-900 border-white relative bottom-20 mb-[-60px]' alt="user img" />
 
@@ -26,9 +27,11 @@ const Profile = () => {
                         <h1 className='  dark:text-white mx-10 text-xl'>{user.followers.length} followers</h1>
                         <h1 className='  dark:text-white mx-10 text-xl'>{user.following.length} following</h1>
 
-                    </div>
 
+                    </div>
+                    <List mode={'myProfile'} />
                 </div>
+
 
             </div>
         </div>

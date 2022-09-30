@@ -1,11 +1,8 @@
 import React from 'react'
+import List from '../list/List'
 
 const Fav = () => {
-  return (
-    <div>
-        
-    </div>
-  )
+  return (<><List mode={'fav'} /></>)
 }
 
 export default Fav

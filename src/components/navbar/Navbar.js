@@ -82,8 +82,8 @@ const Navbar = ({ updatethestate }) => {
 
                                                 onClick={() => { navigate('/profile') }}
                                                 className={classNames(
-                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900' : 'text-gray-700 dark:text-slate-100',
-                                                    'block px-4 py-2 text-sm'
+                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                        'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Profile
@@ -96,8 +96,8 @@ const Navbar = ({ updatethestate }) => {
 
                                                 onClick={() => { navigate('/favourites') }}
                                                 className={classNames(
-                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900' : 'text-gray-700 dark:text-slate-100',
-                                                    'block px-4 py-2 text-sm'
+                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                    'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 favourites
@@ -112,8 +112,8 @@ const Navbar = ({ updatethestate }) => {
                                             <p
                                                 onClick={() => { navigate('/settings') }}
                                                 className={classNames(
-                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900' : 'text-gray-700 dark:text-slate-100',
-                                                    'block px-4 py-2 text-sm'
+                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                        'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Settings
@@ -126,8 +126,8 @@ const Navbar = ({ updatethestate }) => {
                                             <p
 
                                                 className={classNames(
-                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900' : 'text-gray-700 dark:text-slate-100',
-                                                    'block px-4 py-2 text-sm'
+                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                        'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Logout

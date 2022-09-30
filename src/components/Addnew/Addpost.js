@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { subaddaction } from '../../store/reducers/submitadd';
 
-const Addpost = ({updates}) => {
+const Addpost = () => {
   const dispatch = useDispatch()
   const { hide } = addaction
   const user = useSelector(state => state.auth.user)
@@ -14,7 +15,7 @@ const Addpost = ({updates}) => {
   const [txt, settxt] = useState();
   const [media, setmedia] = useState({ type: '', file: '' });
   const [spinner, setspinner] = useState('Post');
-
+  const { subadd } = subaddaction
 
   const publicPost = async () => {
 
@@ -31,8 +32,7 @@ const Addpost = ({updates}) => {
       }
 
 
-
-      await setDoc(doc(db, "posts", pid.join('')), {
+      const data = {
         postBody: postBody.current.value ? postBody.current.value : '',
         name: user.name,
         image: user.image,
@@ -41,8 +41,11 @@ const Addpost = ({updates}) => {
         postTime: Date().slice(0, 21),
         postId: pid.join(''),
         likedby: [],
-        posterId:user.uid,
-      })
+        posterId: user.uid,
+      }
+
+
+      await setDoc(doc(db, "posts", pid.join('')),data)
 
       const userpostsarrref = doc(db, "users", user.uid)
       await updateDoc(userpostsarrref, {
@@ -50,9 +53,9 @@ const Addpost = ({updates}) => {
       });
 
       const action = hide()
-      updates('update')
       dispatch(action)
       setspinner('Post')
+      dispatch(subadd(JSON.stringify(data)))
 
     }
   }
