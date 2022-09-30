@@ -230,7 +230,7 @@ const List = ({ mode }) => {
                         })
                         setposts(postslist)
                     } else {
-                        setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
+                        setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
 
                     }
                 }
