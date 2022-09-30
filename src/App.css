@@ -17,7 +17,9 @@
   border-radius: 10px;
 
 }
-
+.show{
+  display:block !important;
+}
 .media{
   height:260px;
 }

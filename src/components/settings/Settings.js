@@ -93,7 +93,9 @@ const Settings = () => {
 
 
     const deleteacc = () => {
+
         if (user.Provider == 'password') {
+            console.log('f')
             setpopup('show')
         } else {
             prmp()
@@ -102,12 +104,23 @@ const Settings = () => {
 
     }
     const dlt = async () => {
+        setloading(<Loading />)
         await deleteDoc(doc(db, "users", user.uid))
-        setloading()
+        deleteUser(auth.currentUser).then(() => {
+            dltdoc()
+        }).catch((error) => {
+            console.log(error)
+            setloading()
+        });
+
+
+    }
+    const dltdoc = async () => {
+
         localStorage.removeItem('user')
         window.location.reload()
+        setloading()
     }
-
 
 
     const saveChanges = () => {
@@ -219,10 +232,12 @@ const Settings = () => {
 
         if (user.Provider == 'password') {
             console.log(currentpass)
+
             if (currentpass) {
                 const cre = EmailAuthProvider.credential(user.email, currentpass)
                 reauthenticateWithCredential(auth.currentUser, cre).then(() => {
                     setpopup()
+                    dlt()
                 }).catch((err) => {
 
                     console.log(err)
@@ -232,12 +247,6 @@ const Settings = () => {
                 })
 
             }
-
-
-
-
-
-
 
 
         } else {
@@ -273,7 +282,7 @@ const Settings = () => {
 
     return (
         <div>
-            <div className={thepopup + ` hidden fixed top-0 bottom-0 left-0 right-0 bg-black/50`}>
+            <div className={thepopup + ` hidden fixed z-50 top-0 bottom-0 left-0 right-0 bg-black/50`}>
 
                 <div className='w-full h-full flex items-center justify-center'>
 
@@ -290,10 +299,7 @@ const Settings = () => {
             </div>
 
             {loading}
-            {/* <div className='w-[95%] max-w-[650px] py-5  bg-white dark:bg-slate-800 mx-auto my-20 rounded-xl'>
-                <p className=' dark:text-white'>your account is not verfied</p>
-                <button onClick={verfiyemail} className=' block  mx-auto  my-4 bg-indigo-500 px-2 py-1 rounded-md text-white hover:bg-indigo-600'>Verfiy account</button>
-            </div> */}
+
 
             <div className='w-[95%] max-w-[650px] pb-11  bg-white dark:bg-slate-800 mx-auto my-20 rounded-xl'>
                 <h2 className=' dark:text-white text-xl pt-5'>Personal information</h2>
@@ -301,9 +307,9 @@ const Settings = () => {
 
 
                 <div className='set  w-[80%] mx-auto pb-2 flex items-center justify-center flex-col'>
-                   <div></div>
+                    <div></div>
                     <img src={photo ? photo : user.image} alt="" className=' my-4 w-16 h-16 rounded-md' />
-                    
+
                     <label className=' bg-slate-400 py-1 px-2 rounded-md hover:bg-slate-500' htmlFor="myfile">{uplbtn}</label>
                     <input onChange={(e) => uploadimg(e.target.files[0])} accept="image/*" type="file" id="myfile" name="myfile" className=' hidden' />
 

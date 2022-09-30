@@ -15,7 +15,7 @@ const List = ({ mode }) => {
     const navigate = useNavigate()
     const subadd = useSelector(state => state.subadd.subadd)
     const [nofr, setnofr] = useState();
-
+    const [placeholders, setplaceholders] = useState();
 
 
     const getuserdata = async () => {
@@ -53,6 +53,270 @@ const List = ({ mode }) => {
         }
     }, [lastVisible]);
 
+    useEffect(() => {
+
+        if (posts != '') {
+            setplaceholders('')
+        } else {
+            setplaceholders(<><><div className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                {/* header */}
+                <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+
+                    <div className='  animate-pulse border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
+
+
+                        <div className='  flex h-full  items-center'>
+
+                            <div className={` shadow-md bg-slate-400 dark:bg-slate-700   w-[40px] h-[40px] rounded-full ml-3`} alt="" ></div>
+
+                            <div className='  animate-pulse flex flex-col  h-14'>
+                                <span className=' self-start ml-3 font-semibold mt-3 rounded-md bg-slate-400 dark:bg-slate-700  h-3 w-14'></span>
+                                <span className=' ml-5 mb-4 text-xs bg-slate-400 rounded-md dark:bg-slate-700  h-3 w-24 mt-1 '></span>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div className='  animate-pulse mr-5 w-9 rounded-md h-5 bg-slate-400 dark:bg-slate-700 '></div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+                {/* Body */}
+
+                <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+
+                    <div className=' w-full h-[200px]' alt="" >
+                        <div className=' w-[80%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        <div className=' w-[50%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        <div className=' w-[20%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        <div className=' w-[80%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        <div className=' w-[50%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        <div className=' w-[70%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                    </div>
+
+                    <span className=' self-start mx-3 my-2 text-md '>
+                        <div></div>
+                    </span>
+
+                </div>
+                {/* footer */}
+
+                <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                    <div className='flex  animate-pulse'>
+
+
+                        <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                        <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                    </div>
+
+                    <div className='  animate-pulse mr-2 bg-slate-400 dark:bg-slate-700  w-4 h-5 ml-2 rounded-md ' ></div>
+
+                </div>
+
+
+
+            </div>
+                <div className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                    {/* header */}
+                    <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+
+                        <div className='  animate-pulse border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
+
+
+                            <div className='  flex h-full  items-center'>
+
+                                <div className={` shadow-md bg-slate-400 dark:bg-slate-700   w-[40px] h-[40px] rounded-full ml-3`} alt="" ></div>
+
+                                <div className='  animate-pulse flex flex-col  h-14'>
+                                    <span className=' self-start ml-3 font-semibold mt-3 rounded-md bg-slate-400 dark:bg-slate-700  h-3 w-14'></span>
+                                    <span className=' ml-5 mb-4 text-xs bg-slate-400 rounded-md dark:bg-slate-700  h-3 w-24 mt-1 '></span>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div className='  animate-pulse mr-5 w-9 rounded-md h-5 bg-slate-400 dark:bg-slate-700 '></div>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    {/* Body */}
+
+                    <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+
+                        <div className=' w-full h-[100px]' alt="" >
+                            <div className=' w-[80%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                            <div className=' w-[50%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                            <div className=' w-[20%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        </div>
+
+                        <span className=' self-start mx-3 my-2 text-md '>
+                            <div></div>
+                        </span>
+
+                    </div>
+                    {/* footer */}
+
+                    <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                        <div className='flex  animate-pulse'>
+
+
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                        </div>
+
+                        <div className='  animate-pulse mr-2 bg-slate-400 dark:bg-slate-700  w-4 h-5 ml-2 rounded-md ' ></div>
+
+                    </div>
+
+
+
+                </div>
+                <div className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                    {/* header */}
+                    <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+
+                        <div className='  animate-pulse border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
+
+
+                            <div className='  flex h-full  items-center'>
+
+                                <div className={` shadow-md bg-slate-400 dark:bg-slate-700   w-[40px] h-[40px] rounded-full ml-3`} alt="" ></div>
+
+                                <div className='  animate-pulse flex flex-col  h-14'>
+                                    <span className=' self-start ml-3 font-semibold mt-3 rounded-md bg-slate-400 dark:bg-slate-700  h-3 w-14'></span>
+                                    <span className=' ml-5 mb-4 text-xs bg-slate-400 rounded-md dark:bg-slate-700  h-3 w-24 mt-1 '></span>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div className='  animate-pulse mr-5 w-9 rounded-md h-5 bg-slate-400 dark:bg-slate-700 '></div>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    {/* Body */}
+
+                    <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+
+                        <div className=' w-full h-[100px]' alt="" >
+                            <div className=' w-[80%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                            <div className=' w-[50%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                            <div className=' w-[20%] h-5 bg-slate-400 dark:bg-slate-700  m-3 rounded-md animate-pulse'></div>
+                        </div>
+
+                        <span className=' self-start mx-3 my-2 text-md '>
+                            <div></div>
+                        </span>
+
+                    </div>
+                    {/* footer */}
+
+                    <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                        <div className='flex  animate-pulse'>
+
+
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                        </div>
+
+                        <div className='  animate-pulse mr-2 bg-slate-400 dark:bg-slate-700  w-4 h-5 ml-2 rounded-md ' ></div>
+
+                    </div>
+
+
+
+                </div>
+                <div className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                    {/* header */}
+                    <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+
+                        <div className='  animate-pulse border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
+
+
+                            <div className='  flex h-full  items-center'>
+
+                                <div className={` shadow-md bg-slate-400 dark:bg-slate-700   w-[40px] h-[40px] rounded-full ml-3`} alt="" ></div>
+
+                                <div className='  animate-pulse flex flex-col  h-14'>
+                                    <span className=' self-start ml-3 font-semibold mt-3 rounded-md bg-slate-400 dark:bg-slate-700  h-3 w-14'></span>
+                                    <span className=' ml-5 mb-4 text-xs bg-slate-400 rounded-md dark:bg-slate-700  h-3 w-24 mt-1 '></span>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div className='  animate-pulse mr-5 w-9 rounded-md h-5 bg-slate-400 dark:bg-slate-700 '></div>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    {/* Body */}
+
+                    <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+
+                        <div className=' w-full h-[250px]' alt="" >
+                            <div className=' w-[95%] h-full bg-slate-400 dark:bg-slate-700 mx-auto  my-3 rounded-md animate-pulse'></div>
+                        </div>
+
+                        <span className=' self-start mx-3 my-2 text-md '>
+                            <div></div>
+                        </span>
+
+                    </div>
+                    {/* footer */}
+
+                    <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                        <div className='flex  animate-pulse'>
+
+
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                            <div className=' bg-slate-400 dark:bg-slate-700  w-6 h-5 ml-2 rounded-md ' ></div>
+                        </div>
+
+                        <div className='  animate-pulse mr-2 bg-slate-400 dark:bg-slate-700  w-4 h-5 ml-2 rounded-md ' ></div>
+
+                    </div>
+
+
+
+                </div></></>)
+        }
+    }, [posts]);
 
 
     const getmoredata = async () => {
@@ -127,6 +391,7 @@ const List = ({ mode }) => {
                     setposts(newposts)
 
                     setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+                    setplaceholders('')
                 }
             }
         }
@@ -152,7 +417,6 @@ const List = ({ mode }) => {
     }
 
     const getalldata = async () => {
-
 
         const postslist = []
 
@@ -180,6 +444,7 @@ const List = ({ mode }) => {
                     })
                     setposts(postslist)
                 } else {
+                    setplaceholders('')
                     setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
 
                 }
@@ -204,16 +469,23 @@ const List = ({ mode }) => {
         }
 
         else if (mode == 'myProfile') {
-            const first = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), limit(20));
-            const documentSnapshots = await getDocs(first)
+            if (userdata) {
+                if (userdata.posts != '') {
+                    const first = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), limit(20));
+                    const documentSnapshots = await getDocs(first)
 
-            setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+                    setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
-            documentSnapshots.forEach((doc) => {
-                postslist.push(doc.data());
-            })
-            setposts(postslist)
+                    documentSnapshots.forEach((doc) => {
+                        postslist.push(doc.data());
+                    })
+                    setposts(postslist)
+                } else {
+                    console.log('empty')
+                    setplaceholders('')
+                }
+            }
         }
         else if (mode == 'fav') {
 
@@ -229,9 +501,10 @@ const List = ({ mode }) => {
                             postslist.push(doc.data());
                         })
                         setposts(postslist)
+                        setplaceholders('')
                     } else {
                         setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
-
+                        setplaceholders('')
                     }
                 }
             }
@@ -242,13 +515,18 @@ const List = ({ mode }) => {
                 const first = query(collection(db, "posts"), where('posterId', '==', mode), orderBy('timeStamp'), limit(20));
                 const documentSnapshots = await getDocs(first)
 
-                setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+                if (documentSnapshots.docs != '') {
+                    setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
-                documentSnapshots.forEach((doc) => {
-                    postslist.push(doc.data());
-                })
-                setposts(postslist)
+                    documentSnapshots.forEach((doc) => {
+                        postslist.push(doc.data());
+                    })
+                    setposts(postslist)   
+                }else{
+                    setnofr('no posts')
+                    setplaceholders('')
+                }
             }
         }
 
@@ -327,16 +605,18 @@ const List = ({ mode }) => {
 
                             })
                             setposts(postlists);
+                            setplaceholders('')
                         } else {
                             setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
-        
+                            setplaceholders('')
                         }
-                    }else {
+                    } else {
                         setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
-    
+                        setplaceholders('')
                     }
-                }else{
+                } else {
                     setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
+                    setplaceholders('')
                 }
             }
             else {
@@ -414,7 +694,7 @@ const List = ({ mode }) => {
                 })
                 getuserdata()
                 showUpdates()
-            } 
+            }
             else {
                 await updateDoc(me, {
                     favourites: arrayUnion(postId)
@@ -423,7 +703,7 @@ const List = ({ mode }) => {
                 showUpdates()
             }
 
-        }else{
+        } else {
             await updateDoc(me, {
                 favourites: arrayUnion(postId)
             })
@@ -447,144 +727,152 @@ const List = ({ mode }) => {
     return (
         <div className=' pb-48'>
             {nofr}
-            {posts.map(post => <div key={Math.random()} className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
-                {/* header */}
-                <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+            {posts.map(post =>
+                <div key={Math.random()} className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                    {/* header */}
+                    <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
 
-                    <div className=' border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
+                        <div className=' border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
 
 
-                        <div onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} className=' cursor-pointer flex h-full  items-center'>
+                            <div onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} className=' cursor-pointer flex h-full  items-center'>
 
-                            <img src={post.image} className={` shadow-md  w-[40px] h-[40px] rounded-full ml-3`} alt="" />
-                            <div className=' flex flex-col  h-14'>
-                                <span className=' self-start ml-3 font-semibold mt-3'>{post.name}</span>
-                                <span className=' ml-5 mb-4 text-xs'>{post.postTime}</span>
+                                <img src={post.image} className={` shadow-md  w-[40px] h-[40px] rounded-full ml-3`} alt="" />
+                                <div className=' flex flex-col  h-14'>
+                                    <span className=' self-start ml-3 font-semibold mt-3'>{post.name}</span>
+                                    <span className=' ml-5 mb-4 text-xs'>{post.postTime}</span>
+                                </div>
+
                             </div>
+
+
+
+
+
+
+
+
+                            <Menu as="div" className="relative inline-block text-left w-fit h-fit">
+                                <div>
+                                    <Menu.Button className='flex items-center '>
+
+                                        <i className="fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
+
+
+                                    </Menu.Button>
+                                </div>
+
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md dark:divide-black dark:bg-slate-800 bg-white shadow-lg ring-1 ring-black ring-opacity-5  border-[0.5px] border-slate-600/30 focus:outline-none">
+                                        <div className="py-1">
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <p
+
+                                                        onClick={() => saveposttofav(post.postId)}
+                                                        className={classNames(
+                                                            active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                            'block px-4 py-2 text-sm  cursor-pointer'
+                                                        )}
+                                                    >
+
+                                                        {userdata.favourites && userdata.favourites.includes(post.postId) ? <>unsave post <i className="fa-solid fa-bookmark"></i> </> : <>save post <i className="fa-regular fa-bookmark"></i></>}
+
+
+                                                    </p>
+                                                )}
+                                            </Menu.Item>
+                                            {userdata && userdata.posts && userdata.posts.includes(post.postId) &&
+                                                <>
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <p
+
+                                                                onClick={(e) => deltepost(post)}
+                                                                className={classNames(
+                                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                                    'block px-4 py-2 text-sm  cursor-pointer'
+                                                                )}
+                                                            >
+                                                                Delete Post <i className="fa-regular fa-trash-can"></i>
+                                                            </p>
+                                                        )}
+                                                    </Menu.Item>
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <p
+
+
+                                                                className={classNames(
+                                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                                    'block px-4 py-2 text-sm  cursor-pointer'
+                                                                )}
+                                                            >
+                                                                Edit Post <PencilIcon className=' w-4 h-4 inline' />
+                                                            </p>
+                                                        )}
+                                                    </Menu.Item>
+                                                </>
+
+
+
+                                            }
+                                        </div>
+
+
+
+
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
+
 
                         </div>
 
 
+                    </div>
+                    {/* Body */}
 
+                    <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+                        {
+                            post.media.type && post.media.type == 'img' ? <img src={post.media.file} className=' w-full max-h-[430px]' alt="" /> : post.media.type == 'vid' ? <video src={post.media.file} controls className=' w-full max-h-[430px]' /> : ''
+                        }
+                        <span className=' self-start mx-3 my-2 text-md '>{post.postBody}</span>
 
+                    </div>
+                    {/* footer */}
 
+                    <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                        <div>
+                            <i className={post.likedby.includes(user.uid) ? 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love' : 'fa-regular fa-heart text-xl mx-3 dark:text-white   cursor-pointer love'} onClick={(e) => likepost(e.target, post.postId)}></i>
 
+                            <ChatBubbleLeftRightIcon className=' cursor-pointer hover:text-red-600 w-6 h-6 inline dark:text-white' />
+                        </div>
 
-
-                        <Menu as="div" className="relative inline-block text-left w-fit h-fit">
-                            <div>
-                                <Menu.Button className='flex items-center '>
-
-                                    <i className="fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
-
-
-                                </Menu.Button>
-                            </div>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
-                            >
-                                <Menu.Items className="absolute right-0 z-10 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md dark:divide-black dark:bg-slate-800 bg-white shadow-lg ring-1 ring-black ring-opacity-5  border-[0.5px] border-slate-600/30 focus:outline-none">
-                                    <div className="py-1">
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <p
-
-                                                    onClick={() => saveposttofav(post.postId)}
-                                                    className={classNames(
-                                                        active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                        'block px-4 py-2 text-sm  cursor-pointer'
-                                                    )}
-                                                >
-
-                                                    {userdata.favourites && userdata.favourites.includes(post.postId) ? <>unsave post <i className="fa-solid fa-bookmark"></i> </> : <>save post <i className="fa-regular fa-bookmark"></i></>}
-
-
-                                                </p>
-                                            )}
-                                        </Menu.Item>
-                                        {userdata && userdata.posts && userdata.posts.includes(post.postId) &&
-                                            <>
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <p
-
-                                                            onClick={(e) => deltepost(post)}
-                                                            className={classNames(
-                                                                active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                                'block px-4 py-2 text-sm  cursor-pointer'
-                                                            )}
-                                                        >
-                                                            Delete Post <i className="fa-regular fa-trash-can"></i>
-                                                        </p>
-                                                    )}
-                                                </Menu.Item>
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <p
-
-
-                                                            className={classNames(
-                                                                active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                                'block px-4 py-2 text-sm  cursor-pointer'
-                                                            )}
-                                                        >
-                                                            Edit Post <PencilIcon className=' w-4 h-4 inline' />
-                                                        </p>
-                                                    )}
-                                                </Menu.Item>
-                                            </>
-
-
-
-                                        }
-                                    </div>
-
-
-
-
-                                </Menu.Items>
-                            </Transition>
-                        </Menu>
-
-
+                        <span className=' mr-2 dark:text-white'>{post.likedby.length} likes</span>
                     </div>
 
 
-                </div>
-                {/* Body */}
-
-                <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
-                    {
-                        post.media.type && post.media.type == 'img' ? <img src={post.media.file} className=' w-full max-h-[430px]' alt="" /> : post.media.type == 'vid' ? <video src={post.media.file} controls className=' w-full max-h-[430px]' /> : ''
-                    }
-                    <span className=' self-start mx-3 my-2 text-md '>{post.postBody}</span>
 
                 </div>
-                {/* footer */}
-
-                <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
-                    <div>
-                        <i className={post.likedby.includes(user.uid) ? 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love' : 'fa-regular fa-heart text-xl mx-3 dark:text-white   cursor-pointer love'} onClick={(e) => likepost(e.target, post.postId)}></i>
-
-                        <ChatBubbleLeftRightIcon className=' cursor-pointer hover:text-red-600 w-6 h-6 inline dark:text-white' />
-                    </div>
-
-                    <span className=' mr-2 dark:text-white'>{post.likedby.length} likes</span>
-                </div>
-
-
-
-            </div>
 
 
             )}
+
+
+
+
+            {placeholders}
+
+
 
 
         </div>
