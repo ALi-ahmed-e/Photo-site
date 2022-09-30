@@ -45,7 +45,7 @@ const Addpost = () => {
       }
 
 
-      await setDoc(doc(db, "posts", pid.join('')),data)
+      await setDoc(doc(db, "posts", pid.join('')), data)
 
       const userpostsarrref = doc(db, "users", user.uid)
       await updateDoc(userpostsarrref, {
@@ -194,8 +194,7 @@ const Addpost = () => {
 
               <label htmlFor="myfile"><i className="fa-solid fa-photo-film text-lg ml-3 cursor-pointer hover:bg-indigo-400/20 px-[10px] py-2 rounded-md transition-all"></i></label>
               <input onChange={(e) => { uploadmedia(e.target.files[0]) }} type="file" id="myfile" name="myfile" className=' hidden' />
-
-
+           
             </div>
             <button onClick={publicPost} className={`px-3 py-1 ${txt ? ' opacity-100 hover:bg-indigo-600 cursor-pointer' : ' opacity-50 cursor-default'} ${txt} bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>{spinner}</button>
 
