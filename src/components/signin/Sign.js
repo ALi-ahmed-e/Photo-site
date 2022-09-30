@@ -31,7 +31,8 @@ const Sign = () => {
             theme: 'system',
             bio: '',
             Provider: serviceprofider,
-            verfied: false
+            verfied: false,
+            favourites:[]
         })
         const data = {
             name: user.displayName ? user.displayName : 'user',
@@ -43,7 +44,8 @@ const Sign = () => {
             theme: 'system',
             bio: '',
             Provider: serviceprofider,
-            verfied: false
+            verfied: false,
+            favourites:[]
         }
 
         localStorage.setItem('user', JSON.stringify(data))

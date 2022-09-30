@@ -216,17 +216,24 @@ const List = ({ mode }) => {
             setposts(postslist)
         }
         else if (mode == 'fav') {
-       
+
             if (userdata) {
-                const first = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), limit(20));
-                const documentSnapshots = await getDocs(first)
-                setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
+                if (userdata.favourites) {
+                    if (userdata.favourites != '') {
+                        const first = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), limit(20));
+                        const documentSnapshots = await getDocs(first)
+                        setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
-                documentSnapshots.forEach((doc) => {
-                    postslist.push(doc.data());
-                })
-                setposts(postslist)
+                        documentSnapshots.forEach((doc) => {
+                            postslist.push(doc.data());
+                        })
+                        setposts(postslist)
+                    } else {
+                        setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
+
+                    }
+                }
             }
         }
 
@@ -310,14 +317,24 @@ const List = ({ mode }) => {
             }
             else if (mode == 'fav') {
                 if (userdata) {
-                    const q = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), endAt(lastVisible));
-                    const documentSnapshot = await getDocs(q)
-                    const postlists = [];
-                    documentSnapshot.forEach((doc) => {
-                        postlists.push(doc.data());
+                    if (userdata.favourites) {
+                        if (userdata.favourites != '') {
+                            const q = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), endAt(lastVisible));
+                            const documentSnapshot = await getDocs(q)
+                            const postlists = [];
+                            documentSnapshot.forEach((doc) => {
+                                postlists.push(doc.data());
 
-                    })
-                    setposts(postlists);
+                            })
+                            setposts(postlists);
+                        } else {
+                            setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
+        
+                        }
+                    }else {
+                        setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
+    
+                    }
                 }
             }
             else {
@@ -395,7 +412,8 @@ const List = ({ mode }) => {
                 })
                 getuserdata()
                 showUpdates()
-            } else {
+            } 
+            else {
                 await updateDoc(me, {
                     favourites: arrayUnion(postId)
                 })
@@ -403,6 +421,12 @@ const List = ({ mode }) => {
                 showUpdates()
             }
 
+        }else{
+            await updateDoc(me, {
+                favourites: arrayUnion(postId)
+            })
+            getuserdata()
+            showUpdates()
         }
 
     }
