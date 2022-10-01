@@ -445,7 +445,7 @@ const List = ({ mode }) => {
                     setposts(postslist)
                 } else {
                     setplaceholders('')
-                    setnofr(<span className=' text-xl dark:text-white'>You have no friends</span>)
+                    setnofr(<span className=' mt-20 text-xl dark:text-white'>You are not following anyone</span>)
 
                 }
             }
@@ -482,7 +482,7 @@ const List = ({ mode }) => {
                     })
                     setposts(postslist)
                 } else {
-                    console.log('empty')
+                    setnofr(<span className=' mt-20 text-xl dark:text-white'>No posts</span>)
                     setplaceholders('')
                 }
             }
@@ -524,7 +524,7 @@ const List = ({ mode }) => {
                     })
                     setposts(postslist)   
                 }else{
-                    setnofr('no posts')
+                    setnofr(<span className=' mt-20 text-xl dark:text-white'>No posts</span>)
                     setplaceholders('')
                 }
             }
@@ -546,7 +546,7 @@ const List = ({ mode }) => {
 
         const myposts = doc(db, "users", user.uid)
         await deleteDoc(doc(db, "posts", post.postId))
-        await updateDoc(myposts, { posts: arrayRemove(post.postId) })
+        await updateDoc(myposts, { posts: arrayRemove(post.postId) ,favourites: arrayRemove(post.postId)})
 
         showUpdates()
 
@@ -716,9 +716,6 @@ const List = ({ mode }) => {
     const gotoprof = (Id) => {
         sessionStorage.setItem('otherprofile', Id)
         navigate('/otherprofile')
-
-
-
     }
 
 
@@ -726,7 +723,7 @@ const List = ({ mode }) => {
 
     return (
         <div className=' pb-48'>
-            {nofr}
+            
             {posts.map(post =>
                 <div key={Math.random()} className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
                     {/* header */}
@@ -872,7 +869,9 @@ const List = ({ mode }) => {
 
             {placeholders}
 
-
+            <br/>
+            <br/>
+            {nofr}
 
 
         </div>
