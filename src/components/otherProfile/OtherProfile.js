@@ -5,7 +5,28 @@ import { useSelector } from 'react-redux';
 import List from '../list/List';
 const OtherProfile = () => {
   const [user, setuser] = useState();
-  const me = useSelector(state => state.auth.user)
+  const [me, setme] = useState();
+  const mydata = useSelector(state => state.auth.user)
+
+
+  useLayoutEffect(() => {
+    getuserdata()
+  }, [])
+
+  const getuserdata = async () => {
+    const docRef = doc(db, "users", mydata.uid);
+    const docSnap = await getDoc(docRef);
+
+
+    if (docSnap.exists()) {
+      setme(docSnap.data())
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+
+
 
   const getuser = async () => {
     const docRef = doc(db, "users", sessionStorage.getItem('otherprofile'));
@@ -24,6 +45,7 @@ const OtherProfile = () => {
 
   const followuser = async (e) => {
     if (me.following.includes(user.uid)) {
+      e.target.value = 'Follow'
       const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
       await updateDoc(himref, {
         followers: arrayRemove(me.uid)
@@ -33,10 +55,10 @@ const OtherProfile = () => {
       await updateDoc(meref, {
         following: arrayRemove(user.uid)
       })
-     
-      e.target.value = 'Follow'
-    } else {
 
+
+    } else {
+      e.target.value = 'Unfollow'
       const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
       await updateDoc(himref, {
         followers: arrayUnion(me.uid)
@@ -46,10 +68,10 @@ const OtherProfile = () => {
       await updateDoc(meref, {
         following: arrayUnion(user.uid)
       })
-   
-      e.target.value = 'Unfollow'
+
+
     }
-    
+
   }
 
   return (
@@ -60,7 +82,7 @@ const OtherProfile = () => {
           <div className=' h-28 w-full bg-slate-400 dark:bg-black'></div>
 
           <div className=' w-full bg-white dark:bg-slate-900  pb-10'>
-            <input type='button' className=' cursor-pointer absolute right-2 rounded-md text-white px-4 py-1 bg-indigo-500 hover:bg-indigo-600 mt-5' onClick={(e) => followuser(e)} value={me.following.includes(user.uid)?'Unfollow':'Follow'} ></input>
+            <input type='button' className=' cursor-pointer absolute right-2 rounded-md text-white px-4 py-1 bg-indigo-500 hover:bg-indigo-600 mt-5' onClick={(e) => followuser(e)} value={me.following.includes(user.uid) ? 'Unfollow' : 'Follow'} ></input>
 
             <img src={user.image} className='w-[150px] h-[150px] rounded-full mx-auto border-8  dark:border-slate-900 border-white relative bottom-20 mb-[-60px]' alt="user img" />
 
@@ -69,8 +91,8 @@ const OtherProfile = () => {
 
             <div className=' w-[90%] mx-auto h-[200px] border-t-[.5px] border-slate-600/50 flex flex-row justify-around items-center'>
 
-              <h1 className='  dark:text-white mx-10 text-xl'>{user.followers.length } followers</h1>
-              <h1 className='  dark:text-white mx-10 text-xl'>{user.following.length } following</h1>
+              <h1 className='  dark:text-white mx-10 text-xl'>{user.followers.length} followers</h1>
+              <h1 className='  dark:text-white mx-10 text-xl'>{user.following.length} following</h1>
 
             </div>
             <List mode={user.uid} />

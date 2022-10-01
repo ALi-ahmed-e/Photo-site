@@ -15,6 +15,7 @@ import Addpost from './components/Addnew/Addpost';
 import Error from './components/error/Error';
 import Fav from './components/favourites/Fav';
 import OtherProfile from './components/otherProfile/OtherProfile';
+import Search from './components/search/Search';
 
 
 function App() {
@@ -119,6 +120,7 @@ const updatethestate = (v)=>{
           <Route path='/' element={<CheckAuth><Home /></CheckAuth>} />
           <Route path='/profile' element={<CheckAuth><Profile /></CheckAuth>} />
           <Route path='/otherprofile' element={<CheckAuth><OtherProfile /></CheckAuth>} />
+          <Route path='/search' element={<CheckAuth><Search /></CheckAuth>} />
           <Route path='/favourites' element={<CheckAuth><Fav /></CheckAuth>} />
           <Route path='/explore' element={<CheckAuth><Explore update={update} /></CheckAuth>} />
           <Route path='/settings' element={<CheckAuth><Settings /></CheckAuth>} />

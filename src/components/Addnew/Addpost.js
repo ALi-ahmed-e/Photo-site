@@ -31,7 +31,6 @@ const Addpost = () => {
         pid.push(Math.floor(Math.random() * 9))
       }
 
-
       const data = {
         postBody: postBody.current.value ? postBody.current.value : '',
         name: user.name,
