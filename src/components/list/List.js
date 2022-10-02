@@ -913,7 +913,7 @@ const List = ({ mode }) => {
                                     <div>
                                         <Menu.Button className='flex items-center '>
 
-                                            <i className=" absolute  ml-[375px] mt-5 dark:text-white  fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
+                                            <i className=" absolute mly  mt-5 dark:text-white  fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
 
 
                                         </Menu.Button>

@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+.mly{
+  margin-left:75%;
+}
 
 .bg-glass {
   background: rgba( 0, 0, 0, 0.2 );
@@ -38,15 +41,36 @@
   .media{
     height:190px;
   }
+  .mly{
+    margin-left:73%;
+  }
 }
 @media (max-width:410px) {
   .media{
     height:150px;
   }
+  .mly{
+    margin-left:70%;
+  }
+}
+@media (max-width:370px) {
+
+  .mly{
+    margin-left:65%;
+  }
 }
 @media (max-width:326px) {
   .media{
     height:130px;
+  }
+  .mly{
+    margin-left:63%;
+  }
+}
+@media (max-width:290px) {
+
+  .mly{
+    margin-left:58%;
   }
 }
 
