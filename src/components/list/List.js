@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { endAt, doc, collection, updateDoc, arrayUnion, arrayRemove, getDocs, limit, orderBy, query, startAfter, deleteDoc, onSnapshot, getDoc, where } from "firebase/firestore";
-import { Menu, Transition } from '@headlessui/react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
 import { ChatBubbleLeftRightIcon, PencilIcon } from '@heroicons/react/24/outline';
@@ -522,8 +522,8 @@ const List = ({ mode }) => {
                     documentSnapshots.forEach((doc) => {
                         postslist.push(doc.data());
                     })
-                    setposts(postslist)   
-                }else{
+                    setposts(postslist)
+                } else {
                     setnofr(<span className=' mt-20 text-xl dark:text-white'>No posts</span>)
                     setplaceholders('')
                 }
@@ -546,7 +546,7 @@ const List = ({ mode }) => {
 
         const myposts = doc(db, "users", user.uid)
         await deleteDoc(doc(db, "posts", post.postId))
-        await updateDoc(myposts, { posts: arrayRemove(post.postId) ,favourites: arrayRemove(post.postId)})
+        await updateDoc(myposts, { posts: arrayRemove(post.postId), favourites: arrayRemove(post.postId) })
 
         showUpdates()
 
@@ -718,16 +718,50 @@ const List = ({ mode }) => {
         navigate('/otherprofile')
     }
 
+    const sendComment = async (e, post) => {
+        e.preventDefault()
+        if (e.target.commentBody.value) {
+
+            const comment = {
+                body: e.target.commentBody.value,
+                img: user.image,
+                commenterName: user.name,
+                commenterId: user.uid,
+            }
+
+            const washingtonRef = doc(db, "posts", post.postId);
+
+            await updateDoc(washingtonRef, {
+                comments: arrayUnion(comment)
+            })
+            e.target.commentBody.value = ''
+            showUpdates()
+        }
+    }
+
+
+
+
+    const deletecomment = async (post, comment) => {
+        const washingtonRef = doc(db, "posts", post.postId);
+
+        await updateDoc(washingtonRef, {
+            comments: arrayRemove(comment)
+        })
+        showUpdates()
+
+    }
+
 
 
 
     return (
         <div className=' pb-48'>
-            
+
             {posts.map(post =>
-                <div key={Math.random()} className=' shadow-md rounded-lg my-10 mx-auto w-[95%] max-w-[500px]  bg-white'>
+                <div key={Math.random()} className=' shadow-md  my-10 mx-auto w-[95%] max-w-[500px] '>
                     {/* header */}
-                    <div className=' w-full h-14  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
+                    <div className=' w-full h-14 bg-slate-100  dark:bg-slate-800  rounded-t-md flex items-center dark:text-white'>
 
                         <div className=' border-b-[1px] border-slate-500/30 flex flex-row items-center justify-between w-full'>
 
@@ -803,7 +837,7 @@ const List = ({ mode }) => {
                                                             </p>
                                                         )}
                                                     </Menu.Item>
-                                                    <Menu.Item>
+                                                    {/* <Menu.Item>
                                                         {({ active }) => (
                                                             <p
 
@@ -816,7 +850,7 @@ const List = ({ mode }) => {
                                                                 Edit Post <PencilIcon className=' w-4 h-4 inline' />
                                                             </p>
                                                         )}
-                                                    </Menu.Item>
+                                                    </Menu.Item> */}
                                                 </>
 
 
@@ -838,7 +872,7 @@ const List = ({ mode }) => {
                     </div>
                     {/* Body */}
 
-                    <div className={` flex items-center justify-center flex-col  text-xl dark:bg-slate-800 dark:text-white`}>
+                    <div className={` flex items-center justify-center flex-col bg-slate-100  text-xl dark:bg-slate-800 dark:text-white`}>
                         {
                             post.media.type && post.media.type == 'img' ? <img src={post.media.file} className=' w-full max-h-[430px]' alt="" /> : post.media.type == 'vid' ? <video src={post.media.file} controls className=' w-full max-h-[430px]' /> : ''
                         }
@@ -847,34 +881,113 @@ const List = ({ mode }) => {
                     </div>
                     {/* footer */}
 
-                    <div className=' h-8 w-full  border-t-[1px] border-slate-500/30  dark:bg-slate-800 rounded-b-md flex items-center justify-between'>
+                    <div className=' h-8 w-full  border-y-[1px] border-slate-500/30  dark:bg-slate-800 bg-slate-100  flex items-center justify-between'>
                         <div>
                             <i className={post.likedby.includes(user.uid) ? 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love' : 'fa-regular fa-heart text-xl mx-3 dark:text-white   cursor-pointer love'} onClick={(e) => likepost(e.target, post.postId)}></i>
 
-                            <ChatBubbleLeftRightIcon className=' cursor-pointer hover:text-red-600 w-6 h-6 inline dark:text-white' />
+
+
+
                         </div>
 
-                        <span className=' mr-2 dark:text-white'>{post.likedby.length} likes</span>
+                        <div>
+                            <span className=' mr-2 dark:text-white'>{post.likedby.length} likes</span>
+                            <span className=' mr-2 dark:text-white'>{post.comments.length} comment</span>
+
+                        </div>
                     </div>
 
+                    <Disclosure>
+                        <Disclosure.Button className=' w-full h-0 flex'>
+                            <ChatBubbleLeftRightIcon className=' dark:text-white relative bottom-[27px] left-12 cursor-pointer hover:text-red-600 w-6 h-6 inline ' />
+
+                        </Disclosure.Button>
+                        <Disclosure.Panel className=" bg-slate-100 relative dark:bg-slate-800 py-5 overflow-scroll max-h-[200px]">
+                            {post.comments != '' ? post.comments.map(comment => <div key={Math.random()} className='w-[95%] min-h-[100px] py-5 mx-auto flex my-3'>
+
+                                <img onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} src={comment.img} className=' w-10 h-10 bg-black rounded-full mr-2' />
+
+                                <div onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} className=' absolute ml-16 dark:text-white'>{comment.commenterName.length > 10 ? comment.commenterName.slice(0, 8) + '..' : comment.commenterName}</div>
+
+                                {comment.commenterId== user.uid&&<Menu as="div" className=" text-left w-fit h-fit p-1">
+                                    <div>
+                                        <Menu.Button className='flex items-center '>
+
+                                            <i className=" absolute  ml-[375px] mt-5 dark:text-white  fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
+
+
+                                        </Menu.Button>
+                                    </div>
+
+                                    <Transition
+                                        as={Fragment}
+                                        enter="transition ease-out duration-100"
+                                        enterFrom="transform opacity-0 scale-95"
+                                        enterTo="transform opacity-100 scale-100"
+                                        leave="transition ease-in duration-75"
+                                        leaveFrom="transform opacity-100 scale-100"
+                                        leaveTo="transform opacity-0 scale-95"
+                                    >
+                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-30 origin-top-right divide-y divide-gray-100 rounded-md dark:divide-black dark:bg-slate-800 bg-white shadow-lg ring-1 ring-black ring-opacity-5  border-[0.5px] border-slate-600/30 focus:outline-none">
+                                            <div className="py-1">
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <p
+
+                                                            onClick={() => deletecomment(post, comment)}
+                                                            className={classNames(
+                                                                active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                                'block px-4 py-2 text-sm  cursor-pointer'
+                                                            )}
+                                                        >
+
+                                                            delete comment
+
+
+                                                        </p>
+                                                    )}
+                                                </Menu.Item>
+                                            </div>
+
+
+
+
+                                        </Menu.Items>
+                                    </Transition>
+                                </Menu>}
+
+                                <div className=' dark:text-white flex items-center justify-center w-[90%] bg-slate-300  dark:bg-slate-700 rounded-md'>
+
+
+                                    {comment.body}
+                                </div>
+                            </div>) : <div className=' bg-slate-100 dark:text-white'>No comments</div>}
+
+                        </Disclosure.Panel>
+                    </Disclosure>
+                    <form onSubmit={e => sendComment(e, post)} className=' flex justify-around rounded-b-lg w-full py-3 dark:bg-slate-800 bg-slate-100'>
+                        <input name='commentBody' type="text" placeholder=' write a comment' className=' ml-2 outline-none py-1 px-2 w-[85%] rounded-lg dark:bg-slate-600 dark:text-white bg-slate-200' />
+                        <button type='submit' className=' bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-2 rounded-md mx-1'>Post</button>
+                    </form>
 
 
                 </div>
 
 
-            )}
+            )
+            }
 
 
 
 
             {placeholders}
 
-            <br/>
-            <br/>
+            <br />
+            <br />
             {nofr}
 
 
-        </div>
+        </div >
     )
 }
 

@@ -41,6 +41,7 @@ const Addpost = () => {
         postId: pid.join(''),
         likedby: [],
         posterId: user.uid,
+        comments:[]
       }
 
 
