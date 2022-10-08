@@ -327,7 +327,7 @@ const List = ({ mode }) => {
             const next = query(collection(db, "posts"), where('posterId', 'in', userdata.following), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
             const documentSnapshots = await getDocs(next);
-
+            setplaceholders('')
             if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                 documentSnapshots.forEach((doc) => {
@@ -346,6 +346,7 @@ const List = ({ mode }) => {
             const next = query(collection(db, "posts"), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
             const documentSnapshots = await getDocs(next);
+            setplaceholders('')
             if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                 documentSnapshots.forEach((doc) => {
@@ -364,7 +365,8 @@ const List = ({ mode }) => {
             const next = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
             const documentSnapshots = await getDocs(next);
-            if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
+            setplaceholders('')
+              if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                 documentSnapshots.forEach((doc) => {
                     postslist.push(doc.data());
@@ -381,6 +383,7 @@ const List = ({ mode }) => {
                 const next = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
                 const documentSnapshots = await getDocs(next);
+              
                 if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                     documentSnapshots.forEach((doc) => {
@@ -400,6 +403,7 @@ const List = ({ mode }) => {
                 const next = query(collection(db, "posts"), where('posterId', '==', mode), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
                 const documentSnapshots = await getDocs(next);
+                setplaceholders('')
                 if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                     documentSnapshots.forEach((doc) => {
@@ -434,7 +438,7 @@ const List = ({ mode }) => {
 
                     const documentSnapshots = await getDocs(first)
 
-
+                    setplaceholders('')
 
                     setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
@@ -458,7 +462,7 @@ const List = ({ mode }) => {
 
             const first = query(collection(db, "posts"), orderBy('timeStamp'), limit(20));
             const documentSnapshots = await getDocs(first)
-
+            setplaceholders('')
             setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
@@ -473,7 +477,7 @@ const List = ({ mode }) => {
                 if (userdata.posts != '') {
                     const first = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), limit(20));
                     const documentSnapshots = await getDocs(first)
-
+                    setplaceholders('')
                     setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
@@ -494,6 +498,7 @@ const List = ({ mode }) => {
                     if (userdata.favourites != '') {
                         const first = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), limit(20));
                         const documentSnapshots = await getDocs(first)
+                        setplaceholders('')
                         setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
 
@@ -501,7 +506,6 @@ const List = ({ mode }) => {
                             postslist.push(doc.data());
                         })
                         setposts(postslist)
-                        setplaceholders('')
                     } else {
                         setnofr(<span className=' text-xl dark:text-white'>You have no saved items</span>)
                         setplaceholders('')
@@ -514,7 +518,7 @@ const List = ({ mode }) => {
             if (mode) {
                 const first = query(collection(db, "posts"), where('posterId', '==', mode), orderBy('timeStamp'), limit(20));
                 const documentSnapshots = await getDocs(first)
-
+                setplaceholders('')
                 if (documentSnapshots.docs != '') {
                     setlastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1])
 
@@ -562,6 +566,8 @@ const List = ({ mode }) => {
                 const q = query(collection(db, "posts"), orderBy('timeStamp'), endAt(lastVisible));
 
                 const documentSnapshot = await getDocs(q)
+
+                setplaceholders('')
                 const postlists = [];
                 documentSnapshot.forEach((doc) => {
                     postlists.push(doc.data());
@@ -572,7 +578,8 @@ const List = ({ mode }) => {
 
             } else if (mode == 'home') {
                 const q = query(collection(db, "posts"), where('posterId', 'in', userdata.following), orderBy('timeStamp'), endAt(lastVisible));
-                const documentSnapshot = await getDocs(q)
+                const documentSnapshot = await getDocs(q)                
+                setplaceholders('')
                 const postlists = [];
                 documentSnapshot.forEach((doc) => {
                     postlists.push(doc.data());
@@ -583,7 +590,8 @@ const List = ({ mode }) => {
 
             } else if (mode == 'myProfile') {
                 const q = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), endAt(lastVisible));
-                const documentSnapshot = await getDocs(q)
+                const documentSnapshot = await getDocs(q)                
+                setplaceholders('')
                 const postlists = [];
                 documentSnapshot.forEach((doc) => {
                     postlists.push(doc.data());
@@ -598,7 +606,8 @@ const List = ({ mode }) => {
                     if (userdata.favourites) {
                         if (userdata.favourites != '') {
                             const q = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), endAt(lastVisible));
-                            const documentSnapshot = await getDocs(q)
+                            const documentSnapshot = await getDocs(q)                
+                            setplaceholders('')
                             const postlists = [];
                             documentSnapshot.forEach((doc) => {
                                 postlists.push(doc.data());
@@ -622,7 +631,8 @@ const List = ({ mode }) => {
             else {
                 if (mode) {
                     const q = query(collection(db, "posts"), where('posterId', '==', mode), orderBy('timeStamp'), endAt(lastVisible));
-                    const documentSnapshot = await getDocs(q)
+                    const documentSnapshot = await getDocs(q)                
+                    setplaceholders('')
                     const postlists = [];
                     documentSnapshot.forEach((doc) => {
                         postlists.push(doc.data());
@@ -998,9 +1008,9 @@ const List = ({ mode }) => {
                                         </Transition>
                                     </Menu>}
 
-                                    <div className=' dark:text-white flex overflow-y-scroll items-center h-fit max-h-[200px] py-7  justify-center w-[90%] bg-slate-300  dark:bg-slate-700 rounded-md'>
+                                    <div className=' dark:text-white flex items-center    justify-center w-[90%] bg-slate-300 pt-8  dark:bg-slate-700 rounded-md'>
 
-                                        <p className=' w-[95%]  break-words'>
+                                        <p className=' w-[95%] h-[90%] py-1 pb-4 self-start  max-h-[200px] overflow-y-scroll'>
                                             {comment.body}
                                         </p>
 

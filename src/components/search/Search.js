@@ -130,6 +130,8 @@ const Search = () => {
             getuserdata()
         } else {
 
+
+
             const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
             await updateDoc(himref, {
                 followers: arrayUnion(me.uid)

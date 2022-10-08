@@ -45,7 +45,6 @@ const OtherProfile = () => {
 
   const followuser = async (e) => {
     if (me.following.includes(user.uid)) {
-
       const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
       await updateDoc(himref, {
         followers: arrayRemove(me.uid)
@@ -58,7 +57,6 @@ const OtherProfile = () => {
       e.target.value = 'Follow'
       getuserdata()
     } else {
-
 
       const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
       await updateDoc(himref, {
