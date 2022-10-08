@@ -42,27 +42,27 @@ function App() {
 
     else if (User.theme == 'system') {
 
-     if(window.matchMedia('(prefers-color-scheme:dark)').matches){
-      document.body.style.backgroundColor = "#111827"
-      settheme('dark')
-      
-     }
-     else{
-      document.body.style.backgroundColor = "rgb(226 232 240)"
-      settheme('')
-     }
-
-    }
-    
-    else{
-      if(window.matchMedia('(prefers-color-scheme:dark)').matches){
+      if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
         document.body.style.backgroundColor = "#111827"
         settheme('dark')
-        
-       }else{
+
+      }
+      else {
         document.body.style.backgroundColor = "rgb(226 232 240)"
         settheme('')
-       }
+      }
+
+    }
+
+    else {
+      if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
+        document.body.style.backgroundColor = "#111827"
+        settheme('dark')
+
+      } else {
+        document.body.style.backgroundColor = "rgb(226 232 240)"
+        settheme('')
+      }
     }
 
   }, []);
@@ -106,16 +106,20 @@ function App() {
     }
   }
 
-const updatethestate = (v)=>{
+  const updatethestate = (v) => {
 
-  setupdate(Math.random())
+    setupdate(Math.random())
 
-}
+  }
 
   return (
-    <div className={`App  ${theme}`}>
+    <div className={`App  ${theme} overflow-x-hidden`}>
+
       <BrowserRouter>
         {User && <Navbar updatethestate={updatethestate} />}
+
+
+
         <Routes>
           <Route path='/' element={<CheckAuth><Home /></CheckAuth>} />
           <Route path='/profile' element={<CheckAuth><Profile /></CheckAuth>} />
@@ -127,7 +131,7 @@ const updatethestate = (v)=>{
           <Route path='/signin' element={<ChecknotAuth><Sign /></ChecknotAuth>} />
           <Route path='/signup' element={<ChecknotAuth><Signup /></ChecknotAuth>} />
           <Route path='*' element={<Error />} />
-         
+
         </Routes>
 
       </BrowserRouter>

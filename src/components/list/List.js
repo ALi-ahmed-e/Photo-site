@@ -682,6 +682,37 @@ const List = ({ mode }) => {
     }
 
 
+    const likecomment = async (ele, thepost, comment) => {
+
+        const newcom = comment
+        const postid = thepost.postId
+        const post = doc(db, "posts", postid)
+
+        newcom.likedby.push(user.uid)
+
+
+
+        if (ele.className == 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love') {
+
+            ele.className = "fa-regular fa-heart text-xl mx-3 dark:text-white   cursor-pointer love"
+
+            // await updateDoc(post, {
+            //     comments: arrayRemove(user.uid)
+            // })
+            // showUpdates()
+
+        } else {
+            ele.className = 'fa-solid fa-heart text-xl mx-3 text-red-600   cursor-pointer love'
+            // await updateDoc(post, {
+            //     "comments.likedby": arrayUnion(user.uid)
+            // })
+            // showUpdates()
+        }
+
+
+    }
+
+
 
     const saveposttofav = async (postId) => {
         const me = doc(db, "users", user.uid)
@@ -727,6 +758,7 @@ const List = ({ mode }) => {
                 img: user.image,
                 commenterName: user.name,
                 commenterId: user.uid,
+                likedby: []
             }
 
             const washingtonRef = doc(db, "posts", post.postId);
@@ -757,6 +789,10 @@ const List = ({ mode }) => {
 
     return (
         <div className=' pb-48'>
+
+
+
+
 
             {posts.map(post =>
                 <div key={Math.random()} className=' shadow-md  my-10 mx-auto w-[95%] max-w-[500px] '>
@@ -872,13 +908,17 @@ const List = ({ mode }) => {
                     </div>
                     {/* Body */}
 
-                    <div className={` flex items-center justify-center flex-col bg-slate-100  text-xl dark:bg-slate-800 dark:text-white`}>
+                    <div className={` flex items-center justify-center flex-col bg-slate-100   text-xl dark:bg-slate-800 dark:text-white`}>
                         {
                             post.media.type && post.media.type == 'img' ? <img src={post.media.file} className=' w-full max-h-[430px]' alt="" /> : post.media.type == 'vid' ? <video src={post.media.file} controls className=' w-full max-h-[430px]' /> : ''
                         }
-                        <span className=' self-start mx-3 my-2 text-md '>{post.postBody}</span>
+                        <span className=' self-start mx-3 my-2 text-md w-full h-fit  break-words pr-7 max-h-[430px] overflow-scroll'>
+                            {post.postBody}
+
+                        </span>
 
                     </div>
+
                     {/* footer */}
 
                     <div className=' h-8 w-full  border-y-[1px] border-slate-500/30  dark:bg-slate-800 bg-slate-100  flex items-center justify-between'>
@@ -902,66 +942,76 @@ const List = ({ mode }) => {
                             <ChatBubbleLeftRightIcon className=' dark:text-white relative bottom-[27px] left-12 cursor-pointer hover:text-red-600 w-6 h-6 inline ' />
 
                         </Disclosure.Button>
-                        <Disclosure.Panel className=" bg-slate-100 relative dark:bg-slate-800 py-5 overflow-scroll max-h-[200px]">
-                            {post.comments != '' ? post.comments.map(comment => <div key={Math.random()} className='w-[95%] min-h-[100px] py-5 mx-auto flex my-3'>
+                        <Disclosure.Panel className=" bg-slate-100 relative dark:bg-slate-800 py-5 overflow-y-scroll max-h-[200px]">
+                            {post.comments != '' ? post.comments.map(comment =>
 
-                                <img onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} src={comment.img} className=' w-10 h-10 bg-black rounded-full mr-2' />
+                                <div key={Math.random()} className='w-[95%] min-h-[100px] py-5 mx-auto flex my-3'>
 
-                                <div onClick={() => { post.posterId == user.uid ? navigate('/profile') : gotoprof(post.posterId) }} className=' absolute ml-16 dark:text-white'>{comment.commenterName.length > 10 ? comment.commenterName.slice(0, 8) + '..' : comment.commenterName}</div>
+                                    <img onClick={() => { comment.commenterId == user.uid ? navigate('/profile') : gotoprof(comment.commenterId) }} src={comment.img} className=' w-10 h-10 bg-black rounded-full mr-2' />
 
-                                {comment.commenterId== user.uid&&<Menu as="div" className=" text-left w-fit h-fit p-1">
-                                    <div>
-                                        <Menu.Button className='flex items-center '>
+                                    <div onClick={() => { comment.commenterId == user.uid ? navigate('/profile') : gotoprof(comment.commenterId) }} className=' absolute ml-16 dark:text-white'>{comment.commenterName.length > 10 ? comment.commenterName.slice(0, 8) + '..' : comment.commenterName}</div>
 
-                                            <i className=" absolute mly  mt-5 dark:text-white  fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
+                                    {comment.commenterId == user.uid && <Menu as="div" className=" text-left w-fit h-fit p-1">
+                                        <div>
+                                            <Menu.Button className='flex items-center '>
+
+                                                <i className=" absolute mly  mt-5 dark:text-white  fa-solid fa-ellipsis mr-5 py-1 px-3 rounded-md cursor-pointer transition-all hover:bg-black/20"></i>
 
 
-                                        </Menu.Button>
+                                            </Menu.Button>
+                                        </div>
+
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute right-0 z-10 mt-2 w-30 origin-top-right divide-y divide-gray-100 rounded-md dark:divide-black dark:bg-slate-800 bg-white shadow-lg ring-1 ring-black ring-opacity-5  border-[0.5px] border-slate-600/30 focus:outline-none">
+                                                <div className="py-1">
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <p
+
+                                                                onClick={() => deletecomment(post, comment)}
+                                                                className={classNames(
+                                                                    active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
+                                                                    'block px-4 py-2 text-sm  cursor-pointer'
+                                                                )}
+                                                            >
+
+                                                                delete comment
+
+
+                                                            </p>
+                                                        )}
+                                                    </Menu.Item>
+                                                </div>
+
+
+
+
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>}
+
+                                    <div className=' dark:text-white flex overflow-y-scroll items-center h-fit max-h-[200px] py-7  justify-center w-[90%] bg-slate-300  dark:bg-slate-700 rounded-md'>
+
+                                        <p className=' w-[95%]  break-words'>
+                                            {comment.body}
+                                        </p>
+
+
+
+
+
+
                                     </div>
 
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-30 origin-top-right divide-y divide-gray-100 rounded-md dark:divide-black dark:bg-slate-800 bg-white shadow-lg ring-1 ring-black ring-opacity-5  border-[0.5px] border-slate-600/30 focus:outline-none">
-                                            <div className="py-1">
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <p
-
-                                                            onClick={() => deletecomment(post, comment)}
-                                                            className={classNames(
-                                                                active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                                'block px-4 py-2 text-sm  cursor-pointer'
-                                                            )}
-                                                        >
-
-                                                            delete comment
-
-
-                                                        </p>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-
-
-
-
-                                        </Menu.Items>
-                                    </Transition>
-                                </Menu>}
-
-                                <div className=' dark:text-white flex items-center justify-center w-[90%] bg-slate-300  dark:bg-slate-700 rounded-md'>
-
-
-                                    {comment.body}
-                                </div>
-                            </div>) : <div className=' bg-slate-100 dark:text-white'>No comments</div>}
+                                </div>) : <div className='  dark:text-white'>No comments</div>}
 
                         </Disclosure.Panel>
                     </Disclosure>

@@ -106,6 +106,14 @@ const Search = () => {
 
 
 
+
+
+
+
+
+
+
+
     const followuser = async (e, user) => {
         if (me.following.includes(user.uid)) {
 
@@ -119,7 +127,7 @@ const Search = () => {
                 following: arrayRemove(user.uid)
             })
             e.target.value = 'Follow'
-
+            getuserdata()
         } else {
 
             const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
@@ -132,7 +140,7 @@ const Search = () => {
                 following: arrayUnion(user.uid)
             })
             e.target.value = 'Unfollow'
-
+            getuserdata()
         }
 
     }

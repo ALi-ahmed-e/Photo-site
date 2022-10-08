@@ -56,8 +56,9 @@ const OtherProfile = () => {
         following: arrayRemove(user.uid)
       })
       e.target.value = 'Follow'
-
+      getuserdata()
     } else {
+
 
       const himref = doc(db, "users", sessionStorage.getItem('otherprofile'));
       await updateDoc(himref, {
@@ -69,7 +70,7 @@ const OtherProfile = () => {
         following: arrayUnion(user.uid)
       })
       e.target.value = 'Unfollow'
-
+      getuserdata()
     }
 
   }
