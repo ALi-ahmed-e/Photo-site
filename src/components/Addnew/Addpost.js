@@ -61,7 +61,9 @@ const Addpost = () => {
   }
 
 
-
+useEffect(() => {
+  postBody.current.focus()
+}, []);
 
 
 

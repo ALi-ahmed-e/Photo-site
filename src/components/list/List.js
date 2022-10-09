@@ -3,8 +3,9 @@ import { endAt, doc, collection, updateDoc, arrayUnion, arrayRemove, getDocs, li
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
-import { ChatBubbleLeftRightIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleLeftRightIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 const List = ({ mode }) => {
 
     const [posts, setposts] = useState([]);
@@ -16,6 +17,9 @@ const List = ({ mode }) => {
     const subadd = useSelector(state => state.subadd.subadd)
     const [nofr, setnofr] = useState();
     const [placeholders, setplaceholders] = useState();
+    const [editpostl, seteditpostl] = useState();
+    const [loadic, setloadic] = useState();
+    const edttxt = useRef()
 
 
     const getuserdata = async () => {
@@ -366,7 +370,7 @@ const List = ({ mode }) => {
 
             const documentSnapshots = await getDocs(next);
             setplaceholders('')
-              if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
+            if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                 documentSnapshots.forEach((doc) => {
                     postslist.push(doc.data());
@@ -383,7 +387,7 @@ const List = ({ mode }) => {
                 const next = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), startAfter(lastVisible), limit(20))
 
                 const documentSnapshots = await getDocs(next);
-              
+
                 if (lastVisible != documentSnapshots.docs[documentSnapshots.docs.length - 1]) {
 
                     documentSnapshots.forEach((doc) => {
@@ -578,7 +582,7 @@ const List = ({ mode }) => {
 
             } else if (mode == 'home') {
                 const q = query(collection(db, "posts"), where('posterId', 'in', userdata.following), orderBy('timeStamp'), endAt(lastVisible));
-                const documentSnapshot = await getDocs(q)                
+                const documentSnapshot = await getDocs(q)
                 setplaceholders('')
                 const postlists = [];
                 documentSnapshot.forEach((doc) => {
@@ -590,7 +594,7 @@ const List = ({ mode }) => {
 
             } else if (mode == 'myProfile') {
                 const q = query(collection(db, "posts"), where('posterId', '==', user.uid), orderBy('timeStamp'), endAt(lastVisible));
-                const documentSnapshot = await getDocs(q)                
+                const documentSnapshot = await getDocs(q)
                 setplaceholders('')
                 const postlists = [];
                 documentSnapshot.forEach((doc) => {
@@ -606,7 +610,7 @@ const List = ({ mode }) => {
                     if (userdata.favourites) {
                         if (userdata.favourites != '') {
                             const q = query(collection(db, "posts"), where('postId', 'in', userdata.favourites), orderBy('timeStamp'), endAt(lastVisible));
-                            const documentSnapshot = await getDocs(q)                
+                            const documentSnapshot = await getDocs(q)
                             setplaceholders('')
                             const postlists = [];
                             documentSnapshot.forEach((doc) => {
@@ -631,7 +635,7 @@ const List = ({ mode }) => {
             else {
                 if (mode) {
                     const q = query(collection(db, "posts"), where('posterId', '==', mode), orderBy('timeStamp'), endAt(lastVisible));
-                    const documentSnapshot = await getDocs(q)                
+                    const documentSnapshot = await getDocs(q)
                     setplaceholders('')
                     const postlists = [];
                     documentSnapshot.forEach((doc) => {
@@ -794,12 +798,74 @@ const List = ({ mode }) => {
 
     }
 
+    const editPost = (post) => {
 
+        seteditpostl(post)
+
+        edttxt.current.value = post.postBody
+
+
+    }
+    const savepostchanges = async () => {
+
+        
+
+        if (edttxt.current.value != '') {
+            setloadic(<i className="fa-solid fa-circle-notch animate-spin text-lg text-white"></i>)
+            const washingtonRef = doc(db, "posts", editpostl.postId);
+            await updateDoc(washingtonRef, {
+                postBody: edttxt.current.value
+            });
+            seteditpostl()
+            showUpdates()
+            setloadic()
+        }
+    }
 
 
     return (
         <div className=' pb-48'>
 
+
+
+            <div className={`z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center`} style={editpostl ? { 'display': 'flex' } : { 'display': 'none' }}>
+
+                <div className=' mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
+                    <XMarkIcon onClick={() => { seteditpostl() }} className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
+
+                    <div className='h-full flex flex-col items-center  w-full ml-1'>
+                        <div className=' self-start ml-3 mt-5 flex  h-fit items-center'>
+                            <img src={user.image} alt="" className=' border-[1px] border-black dark:border-white rounded-full w-10 h-10 ' />
+                            <div className=' font-semibold ml-2 dark:text-white'>{user.name}</div>
+                        </div>
+                        <textarea ref={edttxt} placeholder="What's in your mind" className=' font-semibold text-xl bg-transparent  w-[85%] outline-none mt-5  min-h-[150px] max-h-[150px] dark:text-white' />
+
+
+
+                        {editpostl && <div>
+                            {editpostl.media.type && <Fragment>
+                                {editpostl.media.type == 'img' ? <img src={editpostl.media.file} className='media rounded-md mx-auto' alt="" />
+                                    : <video controls src={editpostl.media.file} className='media rounded-md mx-auto' alt="" />}
+
+                            </Fragment>
+
+                            }
+                        </div>}
+
+                        <div className='w-[90%] bg-black/30 dark:bg-slate-200/30 my-3 h-[1px] mx-auto rounded-md'></div>
+
+
+
+                        <div className='  w-[90%] h-[40px]  items-center flex justify-end'>
+
+
+
+                            <button onClick={() => savepostchanges()} className={` px-2 py-1 hover:bg-indigo-700 transition-all  bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>save {loadic}</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -883,11 +949,11 @@ const List = ({ mode }) => {
                                                             </p>
                                                         )}
                                                     </Menu.Item>
-                                                    {/* <Menu.Item>
+                                                    <Menu.Item>
                                                         {({ active }) => (
                                                             <p
 
-
+                                                                onClick={() => editPost(post)}
                                                                 className={classNames(
                                                                     active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
                                                                     'block px-4 py-2 text-sm  cursor-pointer'
@@ -896,7 +962,7 @@ const List = ({ mode }) => {
                                                                 Edit Post <PencilIcon className=' w-4 h-4 inline' />
                                                             </p>
                                                         )}
-                                                    </Menu.Item> */}
+                                                    </Menu.Item>
                                                 </>
 
 

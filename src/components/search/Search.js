@@ -10,7 +10,6 @@ const Search = () => {
     const [load, setload] = useState();
     const [me, setme] = useState();
     const [users, setusers] = useState([]);
-    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
     useLayoutEffect(() => {
         getuserdata()
     }, [])
