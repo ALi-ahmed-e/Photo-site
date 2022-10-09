@@ -29,11 +29,12 @@ const Settings = () => {
     const [wrng, setwrng] = useState();
     const passnew = useRef()
     const passcurrent = useRef()
-
+    const colorval = useRef()
 
     useEffect(() => {
         username.current.value = user.name
         Bio.current.value = user.bio
+        colorval.current.value = user.cover
         // if (emaill.current) { emaill.current.value = user.email }
         if (user.theme == 'system') {
             ischeked.current.checked = 'true'
@@ -150,7 +151,8 @@ const Settings = () => {
             name: username.current.value,
             image: photo ? photo : user.image,
             bio: Bio.current.value ? Bio.current.value : user.bio,
-            theme: nowtheme ? nowtheme : user.theme
+            theme: nowtheme ? nowtheme : user.theme,
+            cover:colorval.current.value
         });
         getuserdata()
         setloading()
@@ -312,7 +314,8 @@ const Settings = () => {
 
                     <label className=' bg-slate-400 py-1 px-2 rounded-md hover:bg-slate-500' htmlFor="myfile">{uplbtn}</label>
                     <input onChange={(e) => uploadimg(e.target.files[0])} accept="image/*" type="file" id="myfile" name="myfile" className=' hidden' />
-
+                    <br />
+                    <input type="color" ref={colorval} />
                 </div>
 
                 <input ref={username} placeholder='name' type="text" className={` text-center block my-7 mx-auto w-[80%] py-2 px-1 rounded-md outline-none bg-slate-300 dark:bg-black dark:text-white`} />

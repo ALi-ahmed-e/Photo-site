@@ -34,7 +34,8 @@ const Signup = () => {
             bio: '',
             Provider: provider,
             verfied: false,
-            favourites:[]
+            favourites:[],
+            cover:'#000000'
         })
         const data = {
             name: user.displayName ? user.displayName : 'user',
@@ -47,7 +48,8 @@ const Signup = () => {
             bio: '',
             Provider: provider,
             verfied: false,
-            favourites:[]
+            favourites:[],
+            cover:'#000000'
         }
 
         localStorage.setItem('user', JSON.stringify(data))

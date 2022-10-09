@@ -78,7 +78,7 @@ const OtherProfile = () => {
       {user && <div>
         <div className=' w-full  pb-5'>
 
-          <div className=' h-28 w-full bg-slate-400 dark:bg-black'></div>
+        <div className={` h-28 w-full `} style={{'background':user.cover}}></div>
 
           <div className=' w-full bg-white dark:bg-slate-900  pb-10'>
             <input type='button' className=' cursor-pointer absolute right-2 rounded-md text-white px-4 py-1 bg-indigo-500 hover:bg-indigo-600 mt-5' onClick={(e) => followuser(e)} value={me.following.includes(user.uid) ? 'Unfollow' : 'Follow'} ></input>

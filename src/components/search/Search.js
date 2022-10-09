@@ -159,7 +159,7 @@ const Search = () => {
                 {load}
 
                 {users.map(user =>
-                    <div key={Math.random()} className={`' flex items-center  justify-between w-[95%] max-w-[600px] h-[70px] bg-white dark:bg-slate-800 my-4 rounded-md ' border-0 border-l-2 `} style={{'borderColor':'#' + Math.floor(Math.random() * 16777215).toString(16)}}>
+                    <div key={Math.random()} className={`' flex items-center  justify-between w-[95%] max-w-[600px] h-[70px] bg-white dark:bg-slate-800 my-4 rounded-md ' border-0 border-l-2 `} style={{'borderColor':user.cover}}>
                         <div className='flex items-center cursor-pointer' onClick={() => gotoprof(user.uid)}>
 
                             <img className=' w-12 h-12 bg-slate-500 rounded-full ml-2 ' src={user.image} />
