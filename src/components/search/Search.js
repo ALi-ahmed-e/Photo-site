@@ -159,16 +159,16 @@ const Search = () => {
                 {load}
 
                 {users.map(user =>
-                    <div key={Math.random()} className={`' flex items-center  justify-between w-[95%] max-w-[600px] h-[70px] bg-white dark:bg-slate-800 my-4 rounded-md ' border-0 border-l-2 `} style={{'borderColor':user.cover}}>
-                        <div className='flex items-center cursor-pointer' onClick={() => gotoprof(user.uid)}>
+                    user.uid !== mydata.uid &&<div key={Math.random()} className={`' flex items-center  justify-between w-[95%] max-w-[600px] h-[70px] bg-white dark:bg-slate-800 my-4 rounded-md ' border-0 border-l-2 `} style={{'borderColor':user.cover}}>
+                    <div className='flex items-center cursor-pointer' onClick={() => gotoprof(user.uid)}>
 
-                            <img className=' w-12 h-12 bg-slate-500 rounded-full ml-2 ' src={user.image} />
-                            <div className=' dark:text-white ml-2  rounded-md'>{user.name}</div>
+                        <img className=' w-12 h-12 bg-slate-500 rounded-full ml-2 ' src={user.image} />
+                        <div className=' dark:text-white ml-2  rounded-md'>{user.name}</div>
 
-                        </div>
-
-                        <input type='button' className=' cursor-pointer rounded-md text-white px-4 py-1 bg-green-600 hover:bg-green-700 mr-2' onClick={(e) => followuser(e, user)} value={me.following.includes(user.uid) ? 'Unfollow' : 'Follow'} ></input>
                     </div>
+
+                    <input type='button' className=' cursor-pointer bn632-hover bn26' onClick={(e) => followuser(e, user)} value={me.following.includes(user.uid) ? 'Unfollow' : 'Follow'} ></input>
+                </div>
                 )}
 
 

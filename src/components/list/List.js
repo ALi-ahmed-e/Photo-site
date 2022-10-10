@@ -809,15 +809,15 @@ const List = ({ mode }) => {
     }
     const savepostchanges = async () => {
 
-        
+
 
         if (edttxt.current.value != '') {
             setloadic(<i className="fa-solid fa-circle-notch animate-spin text-lg text-white"></i>)
             const washingtonRef = doc(db, "posts", editpostl.postId);
             await updateDoc(washingtonRef, {
                 postBody: edttxt.current.value
-                ,name:user.name,
-                image:user.image
+                , name: user.name,
+                image: user.image
             });
             seteditpostl()
             showUpdates()
@@ -828,6 +828,13 @@ const List = ({ mode }) => {
 
     return (
         <div className=' pb-48'>
+
+
+
+
+
+
+
 
 
 
@@ -863,7 +870,7 @@ const List = ({ mode }) => {
 
 
 
-                            {/* <button onClick={() => savepostchanges()} className={` px-2 py-1 hover:bg-indigo-700 transition-all  bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>save {loadic}</button> */}
+
                             <button onClick={() => savepostchanges()} className={`bn632-hover bn25`}>{loadic}</button>
                         </div>
                     </div>
@@ -1114,6 +1121,48 @@ const List = ({ mode }) => {
             <br />
             <br />
             {nofr}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </div >
