@@ -18,7 +18,7 @@ const List = ({ mode }) => {
     const [nofr, setnofr] = useState();
     const [placeholders, setplaceholders] = useState();
     const [editpostl, seteditpostl] = useState();
-    const [loadic, setloadic] = useState();
+    const [loadic, setloadic] = useState('Save');
     const edttxt = useRef()
 
 
@@ -33,6 +33,7 @@ const List = ({ mode }) => {
             console.log("No such document!");
         }
     }
+
 
     useEffect(() => {
 
@@ -815,6 +816,8 @@ const List = ({ mode }) => {
             const washingtonRef = doc(db, "posts", editpostl.postId);
             await updateDoc(washingtonRef, {
                 postBody: edttxt.current.value
+                ,name:user.name,
+                image:user.image
             });
             seteditpostl()
             showUpdates()
@@ -860,8 +863,8 @@ const List = ({ mode }) => {
 
 
 
-                            <button onClick={() => savepostchanges()} className={` px-2 py-1 hover:bg-indigo-700 transition-all  bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>save {loadic}</button>
-
+                            {/* <button onClick={() => savepostchanges()} className={` px-2 py-1 hover:bg-indigo-700 transition-all  bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>save {loadic}</button> */}
+                            <button onClick={() => savepostchanges()} className={`bn632-hover bn25`}>{loadic}</button>
                         </div>
                     </div>
                 </div>
