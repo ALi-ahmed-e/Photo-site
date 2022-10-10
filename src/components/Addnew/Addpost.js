@@ -23,7 +23,7 @@ const Addpost = () => {
       badwords.map(word => {
         if (postBody.current.value.includes(word)) {
 
-          newval = postBody.current.value.replace(word, '****')
+          newval = postBody.current.value.replace(word, '*'.repeat(word.length))
           postBody.current.value = newval
 
 
