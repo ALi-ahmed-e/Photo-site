@@ -30,6 +30,8 @@ const Settings = () => {
     const passnew = useRef()
     const passcurrent = useRef()
     const colorval = useRef()
+    // let bg = user.cover
+    const [bg, setbg] = useState(user.cover);
 
     useEffect(() => {
         username.current.value = user.name
@@ -44,6 +46,8 @@ const Settings = () => {
             ischeked3.current.checked = 'true'
         }
     }, []);
+
+
 
 
 
@@ -152,7 +156,7 @@ const Settings = () => {
             image: photo ? photo : user.image,
             bio: Bio.current.value ? Bio.current.value : user.bio,
             theme: nowtheme ? nowtheme : user.theme,
-            cover:colorval.current.value
+            cover: colorval.current.value
         });
         getuserdata()
         setloading()
@@ -308,14 +312,14 @@ const Settings = () => {
                 <div className=' w-[90%] h-[0.3px] bg-slate-400/50 mx-auto my-5'></div>
 
 
-                <div className='set  w-[80%] mx-auto pb-2 flex items-center justify-center flex-col'>
+                <div style={{ 'backgroundColor':bg }} className='set w-[80%] mx-auto pb-2 flex items-center justify-center flex-col'>
                     <div></div>
                     <img src={photo ? photo : user.image} alt="" className=' my-4 w-16 h-16 rounded-md' />
 
                     <label className=' bg-slate-400 py-1 px-2 rounded-md hover:bg-slate-500' htmlFor="myfile">{uplbtn}</label>
                     <input onChange={(e) => uploadimg(e.target.files[0])} accept="image/*" type="file" id="myfile" name="myfile" className=' hidden' />
                     <br />
-                    <input type="color" ref={colorval} />
+                    <input type="color" onChange={e=>setbg(e.target.value)} ref={colorval} />
                 </div>
 
                 <input ref={username} placeholder='name' type="text" className={` text-center block my-7 mx-auto w-[80%] py-2 px-1 rounded-md outline-none bg-slate-300 dark:bg-black dark:text-white`} />

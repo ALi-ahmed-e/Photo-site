@@ -14,7 +14,7 @@
 }
 
 .set {
-  background: linear-gradient(90deg, rgba(80, 145, 231, 0.233), rgba(77, 212, 194, 0.158));
+  /* background: linear-gradient(90deg, rgba(80, 145, 231, 0.233), rgba(77, 212, 194, 0.158)); */
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
