@@ -88,7 +88,7 @@
     #2999c5,
     #1eddad
   );
-  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+  /* box-shadow: 0 5px 5px 0 rgba(49, 196, 190, 0.75); */
 }
 
 @media (max-width:670px) {
