@@ -67,7 +67,7 @@ const OtherProfile = () => {
       await updateDoc(meref, {
         following: arrayUnion(user.uid)
       })
-      e.target.value = 'Followed'
+      e.target.value = 'Unfollow'
       getuserdata()
     }
 
@@ -81,7 +81,7 @@ const OtherProfile = () => {
         <div className={` h-28 w-full `} style={{'background':user.cover}}></div>
 
           <div className=' w-full bg-white dark:bg-slate-900  pb-10'>
-            <input type='button' className=' cursor-pointer absolute right-2 bn632-hover bn18' onClick={(e) => followuser(e)}  value={me.following.includes(user.uid) ? 'Followed': 'Follow '} ></input>
+            <input type='button' className=' cursor-pointer absolute right-2 bn632-hover bn18' onClick={(e) => followuser(e)}  value={me.following.includes(user.uid) ? 'Unfollow': 'Follow '} ></input>
 
             <img src={user.image} className='w-[150px] h-[150px] rounded-full mx-auto border-8  dark:border-slate-900 border-white relative bottom-20 mb-[-60px]' alt="user img" />
 
