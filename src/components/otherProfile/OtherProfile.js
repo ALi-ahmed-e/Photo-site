@@ -67,7 +67,7 @@ const OtherProfile = () => {
       await updateDoc(meref, {
         following: arrayUnion(user.uid)
       })
-      e.target.value = 'Unfollow'
+      e.target.value = 'Followed'
       getuserdata()
     }
 
