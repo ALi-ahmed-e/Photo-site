@@ -25,20 +25,20 @@ const Navbar = ({ updatethestate }) => {
             localStorage.removeItem('user')
             localStorage.removeItem('Credential')
             localStorage.removeItem('theme')
-            
+
             window.location.reload()
         }).catch((error) => {
             console.log(error)
         });
     }
 
-    const updates = (v)=>{
-        updatethestate('update')
-    }
+    // const updates = () => {
+    //     updatethestate('update')
+    // }
 
     useEffect(() => {
         if (addnew == 'show') {
-            setaddpost(<Addpost updates={updates} />)
+            setaddpost(<Addpost />)
             document.body.style.overflow = 'hidden'
         } else {
             setaddpost('')
@@ -83,7 +83,7 @@ const Navbar = ({ updatethestate }) => {
                                                 onClick={() => { navigate('/profile') }}
                                                 className={classNames(
                                                     active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                        'block px-4 py-2 text-sm  cursor-pointer'
+                                                    'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Profile
@@ -113,7 +113,7 @@ const Navbar = ({ updatethestate }) => {
                                                 onClick={() => { navigate('/settings') }}
                                                 className={classNames(
                                                     active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                        'block px-4 py-2 text-sm  cursor-pointer'
+                                                    'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Settings
@@ -127,7 +127,7 @@ const Navbar = ({ updatethestate }) => {
 
                                                 className={classNames(
                                                     active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
-                                                        'block px-4 py-2 text-sm  cursor-pointer'
+                                                    'block px-4 py-2 text-sm  cursor-pointer'
                                                 )}
                                             >
                                                 Logout
@@ -143,8 +143,6 @@ const Navbar = ({ updatethestate }) => {
                     </Menu>
                     <p className='font-semibold dark:text-white'>
                         {user.name.length < 8 ? user.name : '...' + user.name.slice(0, 6)}
-
-
                     </p>
 
                 </div>
@@ -176,13 +174,6 @@ const Navbar = ({ updatethestate }) => {
                 {addpost}
             </div>
 
-            {/* <div className={` z-50 transition-all  ${navbar} w-full h-44 bg-white dark:bg-slate-800 absolute  `}>
-                <div className=' w-full h-full flex items-center  justify-around flex-col'>
-                    <NavLink end to='/' className=' w-[90%]  font-bold text-md cursor-pointer hover:bg-slate-200 py-1 px-2 rounded-md transition-colors dark:text-white dark:hover:bg-slate-900'>HOME <i className="fa-solid fa-house"></i></NavLink>
-                    <NavLink to='/explore' className=' w-[90%]  font-bold text-md cursor-pointer hover:bg-slate-200 py-1 px-2 rounded-md transition-colors dark:text-white dark:hover:bg-slate-900'>explore <i className="fa-solid fa-compass"></i></NavLink>
-                    <NavLink to='/addpost' className=' w-[90%]  font-bold text-md cursor-pointer hover:bg-slate-200 py-1 px-2 rounded-md transition-colors dark:text-white dark:hover:bg-slate-900'>Add <i className="fa-solid fa-square-plus"></i></NavLink>
-                </div>
-            </div> */}
         </>
     )
 }

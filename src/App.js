@@ -11,7 +11,6 @@ import Profile from './components/Profile/Profile';
 import Navbar from './components/navbar/Navbar';
 import Settings from './components/settings/Settings';
 import Explore from './components/explore/Explore';
-import Addpost from './components/Addnew/Addpost';
 import Error from './components/error/Error';
 import Fav from './components/favourites/Fav';
 import OtherProfile from './components/otherProfile/OtherProfile';
@@ -32,15 +31,10 @@ function App() {
       settheme('dark')
       document.body.style.backgroundColor = "#111827"
 
-    }
-
-
-    else if (User.theme == 'light') {
+    }else if (User.theme == 'light') {
       document.body.style.backgroundColor = "rgb(226 232 240)"
       settheme('')
-    }
-
-    else if (User.theme == 'system') {
+    }else if (User.theme == 'system') {
 
       if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
         document.body.style.backgroundColor = "#111827"
@@ -52,9 +46,7 @@ function App() {
         settheme('')
       }
 
-    }
-
-    else {
+    }else {
       if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
         document.body.style.backgroundColor = "#111827"
         settheme('dark')
@@ -86,7 +78,7 @@ function App() {
   }, []);
 
 
-  //chek logged in not
+  //check logged in orr not
 
   const CheckAuth = ({ children }) => {
     if (User) {

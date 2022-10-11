@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { ChatBubbleLeftRightIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+
+
+
 const List = ({ mode }) => {
 
     const [posts, setposts] = useState([]);
@@ -799,14 +802,6 @@ const List = ({ mode }) => {
 
     }
 
-    const editPost = (post) => {
-
-        seteditpostl(post)
-
-        edttxt.current.value = post.postBody
-
-
-    }
     const savepostchanges = async () => {
 
 
@@ -963,7 +958,11 @@ const List = ({ mode }) => {
                                                         {({ active }) => (
                                                             <p
 
-                                                                onClick={() => editPost(post)}
+                                                                onClick={() => {
+                                                                    seteditpostl(post)
+
+                                                                    edttxt.current.value = post.postBody
+                                                                }}
                                                                 className={classNames(
                                                                     active ? 'bg-gray-100 dark:bg-gray-900 dark:text-slate-100 text-gray-900  cursor-pointer' : 'text-gray-700 dark:text-slate-100 cursor-pointer',
                                                                     'block px-4 py-2 text-sm  cursor-pointer'
@@ -1033,7 +1032,7 @@ const List = ({ mode }) => {
 
                                 <div key={Math.random()} className='w-[95%] min-h-[100px] py-5 mx-auto flex my-3'>
 
-                                    <img onClick={() => { comment.commenterId == user.uid ? navigate('/profile') : gotoprof(comment.commenterId) }} src={comment.img} className=' w-10 h-10 bg-black rounded-full mr-2' />
+                                    <img onClick={() => { comment.commenterId == user.uid ? navigate('/profile') : gotoprof(comment.commenterId) }} src={comment.img} className=' w-[40px] h-[40px] bg-black rounded-full mx-0.5' />
 
                                     <div onClick={() => { comment.commenterId == user.uid ? navigate('/profile') : gotoprof(comment.commenterId) }} className=' absolute ml-16 dark:text-white'>{comment.commenterName.length > 10 ? comment.commenterName.slice(0, 8) + '..' : comment.commenterName}</div>
 
@@ -1086,7 +1085,7 @@ const List = ({ mode }) => {
 
                                     <div className=' dark:text-white flex items-center    justify-center w-[90%] bg-slate-300 pt-8  dark:bg-slate-700 rounded-md'>
 
-                                        <p className=' w-[95%] h-[90%] py-1 pb-4 self-start  max-h-[200px] overflow-y-scroll'>
+                                        <p className=' break-words w-[90%] h-[90%] px-1  py-0.5 pb-4 self-start  max-h-[200px] overflow-y-scroll'>
                                             {comment.body}
                                         </p>
 
@@ -1101,9 +1100,15 @@ const List = ({ mode }) => {
 
                         </Disclosure.Panel>
                     </Disclosure>
-                    <form onSubmit={e => sendComment(e, post)} className=' flex justify-around rounded-b-lg w-full py-3 dark:bg-slate-800 bg-slate-100'>
+                    <form onSubmit={e => sendComment(e, post)} className=' flex justify-around items-center rounded-b-lg w-full py-3 dark:bg-slate-800 bg-slate-100'>
                         <input name='commentBody' type="text" placeholder=' write a comment' className=' ml-2 outline-none py-1 px-2 w-[85%] rounded-lg dark:bg-slate-600 dark:text-white bg-slate-200' />
-                        <button type='submit' className=' bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-2 rounded-md mx-1'>Post</button>
+                        {/* <button type='submit' className=' bg-indigo-500 hover:bg-indigo-600 text-white py-1 px-2 rounded-md mx-1'>Post</button> */}
+                   
+                        <button type='submit' className="relative inline-flex items-center justify-center py-0.5  mx-1 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                            <span className="relative px-3 py-1 transition-all ease-in duration-100 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 ">
+                            Post
+                             </span>
+                        </button>
                     </form>
 
 
@@ -1134,7 +1139,7 @@ const List = ({ mode }) => {
 
 
 
-        
+
 
 
 
