@@ -2,7 +2,7 @@ import React from 'react'
 
 const Error = () => {
   return (
-    <div className='dark:text-white text-3xl mt-20'>Error 404</div>
+    <div className='dark:text-white text-3xl mt-20 err'>Error 404</div>
   )
 }
 
