@@ -4,7 +4,9 @@
 .mly{
   margin-left:75%;
 }
-
+.err{
+text-shadow:red -2px 0,cyan 2px 0;
+}
 .bg-glass {
   background: rgba( 0, 0, 0, 0.2 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
