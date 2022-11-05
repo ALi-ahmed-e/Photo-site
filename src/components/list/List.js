@@ -792,6 +792,12 @@ const List = ({ mode }) => {
         }
     }
 
+    const fcsloss = (e)=>{
+        if (e.target.id == 'yes') {
+            seteditpostl()
+        }
+    }
+
 
     return (
         <div className=' pb-48'>
@@ -805,9 +811,9 @@ const List = ({ mode }) => {
 
 
 
-            <div id='yes' onClick={(e) => e.target.id == 'yes'&& seteditpostl()} className={`z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center`} style={editpostl ? { 'display': 'flex' } : { 'display': 'none' }}>
+            <div id='yes' onClick={(e) => fcsloss(e)} className={`z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center`} style={editpostl ? { 'display': 'flex' } : { 'display': 'none' }}>
 
-                <div id='not'  className=' mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
+                <div id='not'  className='  mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
                     <XMarkIcon id='yes' className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
 
                     <div className='h-full flex flex-col items-center  w-full ml-1'>
@@ -1098,6 +1104,42 @@ const List = ({ mode }) => {
             <br />
             <br />
             {nofr}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
