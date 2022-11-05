@@ -168,13 +168,10 @@ const Addpost = () => {
 
 
   return (
-    <div className=' z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center'>
+    <div onClick={(e) => e.target.id != 'not'&&dispatch(hide())} className=' z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center'>
 
-      <div className=' mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
-        <XMarkIcon onClick={() => {
-          const action = hide()
-          dispatch(action)
-        }} className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
+      <div id='not' className=' mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
+        <XMarkIcon  id='yes' className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
 
         <div className='h-full flex flex-col items-center  w-full ml-1'>
           <div className=' self-start ml-3 mt-5 flex  h-fit items-center'>
