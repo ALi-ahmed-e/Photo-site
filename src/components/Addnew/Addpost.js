@@ -29,45 +29,45 @@ const Addpost = () => {
 
         }
       })
-      
-
-  
-        setspinner(<><i className="fa-solid fa-circle-notch animate-spin text-lg text-white"></i></>)
-        settxt()
-        let pid = []
-        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 10; i++) {
-
-          pid.push(characters[Math.floor(Math.random() * 27)])
-          pid.push(Math.floor(Math.random() * 9))
-        }
-
-        const data = {
-          postBody: postBody.current.value ? postBody.current.value : '',
-          name: user.name,
-          image: user.image,
-          timeStamp: serverTimestamp(),
-          media: media ? media : 'no',
-          postTime: Date().slice(0, 21),
-          postId: pid.join(''),
-          likedby: [],
-          posterId: user.uid,
-          comments: []
-        }
 
 
-        await setDoc(doc(db, "posts", pid.join('')), data)
 
-        const userpostsarrref = doc(db, "users", user.uid)
-        await updateDoc(userpostsarrref, {
-          posts: arrayUnion(pid.join(''))
-        });
+      setspinner(<><i className="fa-solid fa-circle-notch animate-spin text-lg text-white"></i></>)
+      settxt()
+      let pid = []
+      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      for (let i = 0; i < 10; i++) {
 
-        const action = hide()
-        dispatch(action)
-        setspinner('Post')
-        dispatch(subadd(JSON.stringify(data)))
-      
+        pid.push(characters[Math.floor(Math.random() * 27)])
+        pid.push(Math.floor(Math.random() * 9))
+      }
+
+      const data = {
+        postBody: postBody.current.value ? postBody.current.value : '',
+        name: user.name,
+        image: user.image,
+        timeStamp: serverTimestamp(),
+        media: media ? media : 'no',
+        postTime: Date().slice(0, 21),
+        postId: pid.join(''),
+        likedby: [],
+        posterId: user.uid,
+        comments: []
+      }
+
+
+      await setDoc(doc(db, "posts", pid.join('')), data)
+
+      const userpostsarrref = doc(db, "users", user.uid)
+      await updateDoc(userpostsarrref, {
+        posts: arrayUnion(pid.join(''))
+      });
+
+      const action = hide()
+      dispatch(action)
+      setspinner('Post')
+      dispatch(subadd(JSON.stringify(data)))
+
 
     }
   }
@@ -161,17 +161,21 @@ const Addpost = () => {
 
 
 
-
+  const fcsloss = (e) => {
+    if (e.target.id == 'yes') {
+      dispatch(hide())
+    }
+  }
 
 
 
 
 
   return (
-    <div onClick={(e) => e.target.id != 'not'&&dispatch(hide())} className=' z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center'>
+    <div id='yes' onClick={(e) => fcsloss(e)} className=' z-10 fixed top-0 bottom-0 left-0 right-0 bg-glass flex  justify-center'>
 
       <div id='not' className=' mt-14 h-fit pb-5 z-40 w-[90%] max-w-[600px]  bg-white dark:bg-black  rounded-2xl  '>
-        <XMarkIcon  id='yes' className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
+        <XMarkIcon id='yes' className=' mx-2 my-2 w-6 h-6 dark:text-white cursor-pointer' />
 
         <div className='h-full flex flex-col items-center  w-full ml-1'>
           <div className=' self-start ml-3 mt-5 flex  h-fit items-center'>
@@ -208,7 +212,7 @@ const Addpost = () => {
 
             </div>
             {/* <button className={`px-3 py-1 ${txt ? ' opacity-100 hover:bg-indigo-600 cursor-pointer' : ' opacity-50 cursor-default'} ${txt} bg-indigo-500  text-white  rounded-md font-semibold mr-2`}>{spinner}</button> */}
-            <button onClick={publicPost} className={`bn632-hover bn25 ${txt&& 'opacity-75'}`}>{spinner}</button>
+            <button onClick={publicPost} className={`bn632-hover bn25 ${txt && 'opacity-75'}`}>{spinner}</button>
           </div>
         </div>
       </div>
